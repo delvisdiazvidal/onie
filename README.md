@@ -1,4 +1,4 @@
-# Nombre del proyecto: Registro y Control de Licencias de Pesca.
+# Registro y Control de Licencias de Pesca.
 # Objetivos:
 1. Proporcionar la herramienta informática que permita la gestión
 electrónica de los permisos y licencias de pesca rectorados por el
