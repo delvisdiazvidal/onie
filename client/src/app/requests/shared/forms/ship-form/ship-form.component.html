@@ -1,0 +1,162 @@
+<form [formGroup]="shipForm">
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="text" 
+                        id="shipName" 
+                        formControlName="shipName" 
+                        class="form-control"
+                        placeholder="Nombre del Barco">
+                        <small *ngIf="shipName.invalid && shipName.touched">
+                            <small class="text-danger" *ngIf="shipName.errors.required">{{errors.required}}</small>
+                            <small class="text-danger" *ngIf="shipName.errors.noSpecial">{{errors.text}}</small>
+                        </small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <input type="text" 
+                        id="shipPort" 
+                        formControlName="shipPort" 
+                        class="form-control"
+                        placeholder="Matrícula del Puerto">
+                        <small *ngIf="shipPort.invalid && shipPort.touched">
+                            <small class="text-danger" *ngIf="shipPort.errors.usualPattern">{{errors.text}}</small>
+                            <small class="text-danger" *ngIf="shipPort.errors.required">{{errors.required}}</small>
+                        </small>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <input type="text" 
+                        id="shipFolio" 
+                        formControlName="shipFolio" 
+                        class="form-control"
+                        placeholder="Folio">
+                        <small *ngIf="shipFolio.invalid && shipFolio.touched">
+                            <small class="text-danger" *ngIf="shipFolio.errors.usualPattern">{{errors.text}}</small>
+                            <small class="text-danger" *ngIf="shipFolio.errors.required">{{errors.required}}</small>
+                        </small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <input type="text" 
+                        id="shipRegistry" 
+                        formControlName="shipRegistry" 
+                        class="form-control"
+                        placeholder="Lista">
+                        <small *ngIf="shipRegistry.invalid && shipRegistry.touched">
+                            <small class="text-danger" *ngIf="shipRegistry.errors.usualPattern">{{errors.text}}</small>
+                            <small class="text-danger" *ngIf="shipRegistry.errors.required">{{errors.required}}</small>
+                        </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <input type="number" 
+                        id="shipLength"
+                        min="0" 
+                        formControlName="shipLength" 
+                        class="form-control"
+                        placeholder="Eslora">
+                        <small *ngIf="shipLength.invalid && shipLength.touched">
+                            <small class="text-danger" *ngIf="shipLength.errors.required">{{errors.required}}</small>
+                            <small class="text-danger" *ngIf="shipLength.errors.nonZero">{{errors.nonZero}}</small>
+                        </small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <input type="number" 
+                        id="shipBreadth" 
+                        min="0"
+                        formControlName="shipBreadth" 
+                        class="form-control"
+                        placeholder="Manga">
+                        <small *ngIf="shipBreadth.invalid && shipBreadth.touched">
+                            <small class="text-danger" *ngIf="shipBreadth.errors.required">{{errors.required}}</small>
+                            <small class="text-danger" *ngIf="shipBreadth.errors.nonZero">{{errors.nonZero}}</small>
+                        </small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <input type="text" 
+                        id="shipRegistryBrut" 
+                        formControlName="shipRegistryBrut" 
+                        class="form-control"
+                        placeholder="Registro Bruto">
+                        <small *ngIf="shipRegistryBrut.invalid && shipRegistryBrut.touched">
+                            <small class="text-danger" *ngIf="shipRegistryBrut.errors.usualPattern">{{errors.text}}</small>
+                            <small class="text-danger" *ngIf="shipRegistryBrut.errors.required">{{errors.required}}</small>
+                        </small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <input type="text" 
+                        id="shipEngine" 
+                        formControlName="shipEngine" 
+                        class="form-control"
+                        placeholder="Potencia del Motor">
+                        <small *ngIf="shipEngine.invalid && shipEngine.touched">
+                            <small class="text-danger" *ngIf="shipEngine.errors.usualPattern">{{errors.text}}</small>
+                            <small class="text-danger" *ngIf="shipEngine.errors.required">{{errors.required}}</small>
+                        </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group" class="text-muted">
+                <label for="fisheryCraft">Artes de Pesca</label>
+                <select class="form-control"
+                        id="fisheryCraft" 
+                        formControlName="fisheryCraft">
+                        <option *ngFor="let item of fisheryCrafts" 
+                            [value]="item.fisherycraftCode">
+                            {{item.fisherycraftName}}
+                        </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="fisheringAreas" class="text-muted">Áreas de Operación Pesquera</label>
+                <input type="text" 
+                        id="fisheringAreas" 
+                        formControlName="fisheringAreas" 
+                        class="form-control"
+                        placeholder="Áreas de Operación Pesquera">
+                        <small *ngIf="fisheringAreas.invalid && fisheringAreas.touched">
+                            <small class="text-danger" *ngIf="fisheringAreas.errors.usualPattern">{{errors.text}}</small>
+                            <small class="text-danger" *ngIf="fisheringAreas.errors.required">{{errors.required}}</small>
+                        </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label for="fisheryType" class="text-muted">Tipo de Pesquería ( Importe Total: <strong>${{totalFishery}}</strong> )</label>
+        </div>
+    </div>
+    <div class="form-group" formArrayName="fisheryList">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let item of getControlsFisheryList(); let i = index">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" [formControlName]="i" id="i" (change)="getTotalAmount($event)">
+                    <label class="form-check-input" [ngClass]="{'text-muted': !item.value}"> {{fisherys[i].fisheryName}} (${{fisherys[i].fisheryAmount}})</label>
+                </div>
+            </div>
+        </div>
+        <small *ngIf="fisheryList.invalid && fisheryList.touched">
+            <small class="text-danger" *ngIf="fisheryList.errors.required">{{errors.minSelectedCheckboxes}}</small>
+        </small>
+    </div>
+    
+</div>
+</form>

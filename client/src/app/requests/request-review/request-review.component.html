@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <ui-request-item [requestItem]="requestReview"></ui-request-item>
+            <hr>
+            <div class="card-body">
+                <form [formGroup]="reviewForm">
+                <div class="form-group">
+                    <label for="obserInspection">Observaciones</label>
+                    <textarea type="text" 
+                            class="form-control" 
+                            formControlName="obserInspection" 
+                            id="obserInspection" 
+                            rows="6">
+                    </textarea>
+                    <small *ngIf="obserInspection.invalid && obserInspection.touched">
+                        <small class="text-danger" *ngIf="obserInspection.errors.required">{{errors.required}}<br></small>
+                        <small class="text-danger" *ngIf="obserInspection.errors.usualPattern">{{errors.text}}</small>
+                    </small>
+                </div> 
+                </form>
+            </div>
+            <div class="card-footer">
+                <button class="btn-cancel" [disabled]="inValidReviewForm()" (click)="onDenied()">Denegar Solicitud</button>
+                <button class="btn-save" [disabled]="inValidReviewForm()" (click)="onAproved()" >Validar Solicitud</button>
+            </div>
+        </div>
+    </div>
+</div>

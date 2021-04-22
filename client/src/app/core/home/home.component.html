@@ -1,0 +1,46 @@
+<div class="jumbotron">
+  <h1 class="display-4">Bienvenidos</h1>
+  <p class="lead">Página Oficial de la Oficina Nacional de Inspección Estatal.</p>
+  <hr class="my-4">
+  <p>
+    La Oficina Nacional de Inspección Estatal (ONIE), Unidad Presupuestada subordinada al Ministerio 
+    de la Industria Alimentaria, se creó a partir de la fusión del Centro Nacional de Inspección de la 
+    Calidad y la Oficina Nacional de Inspección Pesquera, amparado en la Resolución Ministerial 151 de 14 
+    de julio de 2015.
+ </p>
+  <a class="btn btn-primary btn-lg" [routerLink]="['/nosotros']" role="button">Acceda acá si desea saber más</a>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+      <div class="card">
+          <img class="card-img-top" [src]="getImage('assets/img/onie-red.jpg')" title="Pescadores y Redes" alt="Pescadores y Redes">
+          <div class="card-body">
+            <h5 class="card-title">Tipos de Pesquerías</h5>
+            <p class="card-text">La licencia para las embarcaciones dedicadas a la pesca comercial estatal en aguas marítimas, se expide para los diferentes tipos de pesquerías y está sujeta a las tarifas anuales.</p>
+            <a class="btn btn-primary" [routerLink]="['/tipos-de-pesca']">Acceda acá</a>
+          </div>
+        </div>
+  </div>
+  <div class="col-md-4">
+      <div class="card">
+          <img class="card-img-top" [src]="getImage('assets/img/onie-pesquero.jpg')" title="Barco Pesquero" alt="Barco Pesquero">
+          <div class="card-body">
+            <h5 class="card-title">Entidades Estatales</h5>
+            <p class="card-text">Pesca comercial estatal en aguas marítimas se otorga de forma individual por embarcaciones a las entidades jurídicas armadoras subordinadas al Grupo Empresarial de la Industria Alimentaria.</p>
+            <a class="btn btn-primary" [routerLink]="['/info-para-empresas']">Acceda acá</a>
+          </div>
+        </div>
+  </div>
+  <div class="col-md-4">
+      <div class="card">
+          <img class="card-img-top" [src]="getImage('assets/img/onie-pescador.jpg')" title="Grupo de Pescadores" alt="Grupo de Pescadores">
+          <div class="card-body">
+            <h5 class="card-title">Artes de Pescas Permitidas</h5>
+            <p class="card-text">Conozca las artes de pescas permitidas para cada embarcación y sus cantidades permitidas.</p>
+            <a class="btn btn-primary" [routerLink]="['/artes-de-pesca']">Acceda acá</a>
+          </div>
+        </div>
+  </div>
+</div>
+    

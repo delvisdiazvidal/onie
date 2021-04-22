@@ -1,0 +1,149 @@
+<div *ngIf="licenseDetails">
+    <div class="card-header">
+        <h5 class="card-title">{{licenseDetails.licenseType.licenseTypeName}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Licencia No. <strong>{{licenseDetails.licenseIdentificator}}</strong> - {{licenseDetails.licenseProvince}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Estado de la Solicitud: <strong>{{licenseDetails.licenseStatus}}</strong></h6>
+    </div>
+    <div class="card-body">
+        <ng-template [ngIf]="isAquaculturePrivate()"> 
+            <strong>NOMBRES Y APELLIDOS: </strong> {{licenseDetails.licensePerson.firstName}} {{licenseDetails.licensePerson.lastName}}<br>
+            <strong>CI: </strong> {{licenseDetails.licensePerson.personCI}} <br>
+            <strong>EMAIL: </strong> {{licenseDetails.licensePerson.personEmail}} <br>
+            <strong>TELEFONO: </strong> {{licenseDetails.licensePerson.personPhone}}<br>
+            <strong>DIRECCION: </strong> {{licenseDetails.licensePerson.personDir}}<br>
+            <strong>MUNICIPIO: </strong>{{getMun(licenseDetails.licensePerson.personMunicipalite)}} <br>
+            <strong>PROVINCIA: </strong>{{getProv(licenseDetails.licensePerson.personProvince)}}
+        </ng-template>
+        
+        <ng-template [ngIf]="isAquacultureState()"> 
+            <strong>NOMBRES Y APELLIDOS: </strong> {{licenseDetails.licensePerson.firstName}} {{licenseDetails.licensePerson.lastName}}<br>
+            <strong>CI: </strong> {{licenseDetails.licensePerson.personCI}} <br>
+            <strong>EMPRESA: </strong> {{licenseDetails.licenseCompany.companyName}}<br>
+            <strong>DIRECCION: </strong> {{licenseDetails.licenseCompany.companyDir}}<br>
+            <strong>MUNICIPIO: </strong>{{getMun(licenseDetails.licensePerson.personMunicipalite)}} <br>
+            <strong>PROVINCIA: </strong>{{getProv(licenseDetails.licensePerson.personProvince)}} <br>
+            <strong>ENTIDAD: </strong> {{licenseDetails.licenseCompany.companyEntity}}<br>
+            <strong>BRIGADA DE PESCA / GRANJA: </strong> {{licenseDetails.licenseCompany.companyFishingBrigade}}<br>
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>ACUATORIOS QUE SERÁN OBJETO DE EXPLOTACIÓN</strong></p>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="text-left col-md-4">
+                        <strong>Embalse</strong>
+                    </div>
+                    <div class="text-right col-md-2">
+                        <strong>Superficie</strong> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" 
+            *ngFor="let wmItem of licenseDetails.reservoirList;">
+                <div class="row">
+                    <div class="text-left col-md-4">
+                        {{wmItem.reservoirName}} 
+                    </div>
+                    <div class="text-right col-md-2">
+                        {{wmItem.reservoirSurface}} 
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>EMBARCACIONES QUE SE UTILIZÁN</strong></p>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="text-left col-md-4">
+                            <strong>Nombre</strong>
+                        </div>
+                        <div class="text-right col-md-2">
+                            <strong>Lista</strong>
+                        </div>
+                        <div class="text-right col-md-2">
+                            <strong>Folio</strong>
+                        </div>
+                        <div class="text-right col-md-2">
+                            <strong>Eslora</strong>
+                        </div>
+                        <div class="text-right col-md-2">
+                            <strong>Manga</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" 
+                *ngFor="let shipItem of licenseDetails.shipList;">
+                    <div class="row">
+                        <div class="text-left col-md-4">
+                            {{shipItem.shipName}} 
+                        </div>
+                        <div class="text-right col-md-2">
+                            {{shipItem.shipRegistry}}
+                        </div>
+                        <div class="text-right col-md-2">
+                            {{shipItem.shipFolio}} 
+                        </div>
+                        <div class="text-right col-md-2">
+                            {{shipItem.shipLength}} 
+                        </div>
+                        <div class="text-right col-md-2">
+                            {{shipItem.shipBreadth}} 
+                        </div>
+                    </div>
+                </div>
+                
+            
+        </ng-template>
+
+        <ng-template [ngIf]="isPlatformPrivate()"> 
+            <strong>NOMBRES Y APELLIDOS: </strong> {{licenseDetails.licensePerson.firstName}} {{licenseDetails.licensePerson.lastName}}<br>
+            <strong>CI: </strong> {{licenseDetails.licensePerson.personCI}} <br>
+            <strong>EMAIL: </strong> {{licenseDetails.licensePerson.personEmail}} <br>
+            <strong>TELEFONO: </strong> {{licenseDetails.licensePerson.personPhone}}<br>
+            <strong>DIRECCION: </strong> {{licenseDetails.licensePerson.personDir}}<br>
+            <strong>MUNICIPIO: </strong>{{getMun(licenseDetails.licensePerson.personMunicipalite)}} <br>
+            <strong>PROVINCIA: </strong>{{getProv(licenseDetails.licensePerson.personProvince)}} <br>
+            <hr>
+            <strong>EMBARCACIÓN </strong> {{licenseDetails.licenseShip.shipName}}<br>
+            <strong>FOLIO: </strong> {{licenseDetails.licenseShip.shipFolio}} 
+            <strong> LISTA: </strong> {{licenseDetails.licenseShip.shipRegistry}} <br>
+            <strong>ESLORA: </strong> {{licenseDetails.licenseShip.shipLength}}
+            <strong> MANGA: </strong> {{licenseDetails.licenseShip.shipBreadth}}<br>
+            <strong>CAPITÁN: </strong>{{licenseDetails.licenseShipCaptain.firstName}} {{licenseDetails.licenseShipCaptain.lastName}}<br>
+            <strong>CI: </strong>{{licenseDetails.licenseShipCaptain.personCI}} <br>
+            <strong>DIRECCION: </strong> {{licenseDetails.licenseShipCaptain.personDir}},
+            {{getMun(licenseDetails.licenseShipCaptain.personMunicipalite)}},
+            {{getProv(licenseDetails.licenseShipCaptain.personProvince)}}<br>
+
+        </ng-template>
+
+        <ng-template [ngIf]="isPlatformState()"> 
+            <strong>NOMBRES Y APELLIDOS: </strong> {{licenseDetails.licensePerson.firstName}} {{licenseDetails.licensePerson.lastName}}<br>
+            <strong>CI: </strong> {{licenseDetails.licensePerson.personCI}} <br>
+            <strong>EMPRESA: </strong> {{licenseDetails.licenseCompany.companyName}}<br>
+            <strong>DIRECCION: </strong> {{licenseDetails.licenseCompany.companyDir}}<br>
+            <strong>MUNICIPIO: </strong>{{getMun(licenseDetails.licenseCompany.companyMunicipalite)}} <br>
+            <strong>PROVINCIA: </strong>{{getProv(licenseDetails.licenseCompany.companyProvince)}} <br>
+            <strong>ENTIDAD: </strong> {{licenseDetails.licenseCompany.companyEntity}}<br>
+            <strong>BRIGADA DE PESCA / GRANJA: </strong> {{licenseDetails.licenseCompany.companyFishingBrigade}}<br>
+            <hr>
+            <strong>EMBARCACIÓN </strong> {{licenseDetails.licenseShip.shipName}}<br>
+            <strong>FOLIO: </strong> {{licenseDetails.licenseShip.shipFolio}} 
+            <strong> LISTA: </strong> {{licenseDetails.licenseShip.shipRegistry}} <br>
+            <strong>ESLORA: </strong> {{licenseDetails.licenseShip.shipLength}}
+            <strong> MANGA: </strong> {{licenseDetails.licenseShip.shipBreadth}}<br>
+            <strong>CAPITÁN: </strong>{{licenseDetails.licenseShipCaptain.firstName}} {{licenseDetails.licenseShipCaptain.lastName}}<br>
+            <strong>CI: </strong>{{licenseDetails.licenseShipCaptain.personCI}} <br>
+            <strong>DIRECCION: </strong> {{licenseDetails.licenseShipCaptain.personDir}},
+            {{getMun(licenseDetails.licenseShipCaptain.personMunicipalite)}},
+            {{getProv(licenseDetails.licenseShipCaptain.personProvince)}}<br>
+
+        </ng-template>
+        <hr>
+        <strong>Licencia otorgada por: </strong> Inspector {{licenseDetails.licenseInspector.firstName}} {{licenseDetails.licenseInspector.lastName}}<br>
+        <strong>Expedido: </strong> {{ licenseDetails.licenseDate | date }} | <strong>Vigencia: </strong> 1 Año <br>
+        <strong>No. Solicitud: </strong> {{licenseDetails.licenseRequest.requestOrderNumber}} <br>
+        <strong>Fecha de Solicitud: </strong> {{ licenseDetails.licenseRequest.requestDate | date }}<br>
+        
+    </div>
+</div>
+
+
+

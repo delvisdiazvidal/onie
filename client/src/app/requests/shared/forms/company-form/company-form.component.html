@@ -1,0 +1,107 @@
+<form [formGroup]="companyForm">
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="text" 
+                        id="companyREEUP" 
+                        formControlName="companyREEUP" 
+                        class="form-control"
+                        placeholder="Código REEUP">
+                        <small *ngIf="companyREEUP.invalid && companyREEUP.touched">
+                            <small class="text-danger" *ngIf="companyREEUP.errors.required">{{errors.required}}</small>
+                            <small class="text-danger" *ngIf="companyREEUP.errors.noCode">{{errors.generic}}</small>
+                        </small>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <input type="text" 
+                        id="companyName" 
+                        formControlName="companyName" 
+                        class="form-control"
+                        placeholder="Nombre de la Empresa">
+                        <small *ngIf="companyName.invalid && companyName.touched">
+                            <small class="text-danger" *ngIf="companyName.errors.required">{{errors.required}}</small>
+                            <small class="text-danger" *ngIf="companyName.errors.usualPattern">{{errors.text}}</small>
+                        </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" 
+                        id="entityName" 
+                        formControlName="entityName" 
+                        class="form-control"
+                        placeholder="Nombre de la UEB">
+                        <small *ngIf="entityName.invalid && entityName.touched">
+                            <small class="text-danger" *ngIf="entityName.errors.required">{{errors.required}}</small>
+                            <small class="text-danger" *ngIf="entityName.errors.usualPattern">{{errors.text}}</small>
+                        </small>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" 
+                        id="fishingBrigade" 
+                        formControlName="fishingBrigade" 
+                        class="form-control"
+                        placeholder="Nombre de la Granja o Brigada">
+                        <small *ngIf="fishingBrigade.invalid && fishingBrigade.touched">
+                            <small class="text-danger" *ngIf="fishingBrigade.errors.required">{{errors.required}}</small>
+                            <small class="text-danger" *ngIf="fishingBrigade.errors.usualPattern">{{errors.text}}</small>
+                        </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <textarea 
+                type="text" 
+                class="form-control" 
+                formControlName="companyDir" 
+                id="companyDir" 
+                rows="3"
+                placeholder="Domicilio Legal">
+                </textarea>
+                <small *ngIf="companyDir.invalid && companyDir.touched">
+                    <small class="text-danger" *ngIf="companyDir.errors.required">{{errors.required}}</small>
+                    <small class="text-danger" *ngIf="companyDir.errors.usualPattern">{{errors.text}}</small>
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="companyProvince" class="text-muted">Provincia</label>
+                <select class="form-control"
+                        id="companyProvince" 
+                        formControlName="companyProvince"
+                        (change)="onSelect($event)">
+                        <option *ngFor="let item of provinces"
+                            [value]="item.provinceCode">
+                            {{item.provinceName}} ({{item.provinceAB}})
+                        </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="form-group">
+                <label for="companyMunicipalite" class="text-muted">Municipio</label>
+                <select class="form-control"
+                        id="companyMunicipalite" 
+                        formControlName="companyMunicipalite">
+                        <option *ngFor="let item of municipalites" 
+                            [value]="item.municipaliteCode">
+                            {{item.municipaliteName}}
+                        </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+</form>

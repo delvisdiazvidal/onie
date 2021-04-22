@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">{{ userItem.firstName }} {{ userItem.lastName }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ userItem.userRol.roleName }}</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Usuario:</strong> {{ userItem.username }} </li>
+                    <li class="list-group-item"><strong>CI:</strong> {{ userItem.personCI }} </li>
+                    <li class="list-group-item"><strong>Teléfono:</strong> {{ userItem.personPhone }}</li>
+                    <li class="list-group-item"><strong>Email:</strong> {{ userItem.personEmail }}</li>
+                    <li class="list-group-item"><strong>Direccion Particular:</strong> {{ userItem.personDir }}</li>
+                    <li class="list-group-item"><strong>Fecha de Registro:</strong> {{ userItem.createAt | date }}</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p>Ult Actualización: {{ userItem.modifyAt | timeAgo }}</p> 
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn-cancel" (click)="onEditUser()">Editar Datos</button>
+                    <button class="btn-save" (click)="onEditPass()">Contraseña</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

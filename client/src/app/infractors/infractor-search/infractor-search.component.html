@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-2">
+        <button class="btn btn-success" (click)="onNew()">Nueva Infracción</button>
+    </div>
+    <div class="col-md-8">
+        <form class="form-inline" [formGroup]="searchForm">
+            <input class="form-control search" 
+                    id="searchValue"  
+                    formControlName="searchValue" 
+                    type="search" 
+                    maxlength="11"
+                    placeholder="Introduzca el Carnet de Identidad"
+                    aria-describedby="searchHelpBlock" 
+                    aria-label="Search">
+            <small id="searchHelpBlock" class="form-text text-muted ml-3">
+                Consulte los datos del Infractor
+            </small>
+        </form>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-info" [disabled]="inValidSearch()" (click)="onSearch()">Buscar Infractor</button>
+    </div>
+</div>
+<hr>
+<ng-template [ngIf]="offenderItem"> 
+    <!-- Hacer el Details con un @Input como las form y asi pasar el objeto de un componente a otro -->
+    <div class="card-header">
+        <h5 class="card-title">{{offenderItem.offenderName}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted"> <strong>CI: </strong>{{offenderItem.offenderCI}} - <strong>Dirección: </strong> {{offenderItem.offenderDir}}</h6>
+    </div>
+
+    <div class="card-body" *ngFor="let item of offenderItem.offenderPenalty" >
+        Penalización No. :<strong> {{item.penaltyTicket}} </strong>  <br>
+        <strong>Resolución: </strong> {{item.offenseResolution}}
+        <strong>Artículo: </strong> {{item.offenseArticle}}
+        <strong>Inciso: </strong> {{item.offenseIncised}} 
+        | <strong>Importe: </strong> $ {{item.penaltyAmount}}.00<br>
+        <strong>Fecha de la Penalización:  </strong> {{item.penaltyDate | date}} <br>
+        <strong>Inspector: </strong> {{item.inspectorName}}
+    </div>
+</ng-template>
+<ng-template [ngIf]="!inCleanSearch() && !offenderItem"> 
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            Su busqueda no coincide con ningun Infractor en nuestra base de datos. Confirme su Carnet de Identidad e intente nuevamente.
+        </div>
+    </div>
+</ng-template>

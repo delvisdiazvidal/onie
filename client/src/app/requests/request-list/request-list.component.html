@@ -1,0 +1,147 @@
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-inline" [formGroup]="searchForm">
+            <input class="form-control mr-sm-2 search" 
+                    id="searchValue"  
+                    formControlName="searchValue" 
+                    type="search" 
+                    placeholder="Consulte el estado de su Solicitud"
+                    aria-describedby="searchHelpBlock" 
+                    aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" [disabled]="inValidSearch()" (click)="onSearch()">Buscar</button>
+            <small id="searchHelpBlock" class="form-text text-muted ml-3">
+                Introduzca el Número de Orden o Carnet de Identidad que desea buscar
+            </small>
+        </form>
+    </div>
+</div>
+<hr>
+<ng-template [ngIf]="ifSearch()"> 
+    <ng-template [ngIf]="requestDetails"> 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <ui-request-item [requestItem]="requestDetails"></ui-request-item>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="requestsList && requestsList[0]"> 
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"></h5>
+                <h6 class="card-subtitle mb-2 text-muted">Cliente:  <strong>{{requestsList[0].requestPerson.personName}} {{requestsList[0].requestPerson.personLastName}}</strong></h6>
+                <h6 class="card-subtitle mb-2 text-muted"><strong>Provincia: </strong> {{requestsList[0].requestProvince}}</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item click" 
+                    style="cursor: pointer"
+                    *ngFor="let item of requestsList" 
+                    (click)="onItemView(item.requestCode)">
+                        <div class="col-md-12">
+                            <div class="text-left row-md-4">
+                                <h6> {{item.requestType.licenseTypeName}} </h6>
+                            </div>
+                            <div class="text-left row-md-4">
+                                <strong>Fecha: </strong> {{item.requestDate | date}} | <strong>No. de Orden: </strong>{{item.requestOrderNumber}}  | <strong>Estado: </strong>{{item.requestStatus}} 
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="!requestDetails && !requestsList[0]"> 
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                Su busqueda no coincide con ninguna Solicitud en nuestra base de datos. Confirme su Número de Orden e intente nuevamente.
+            </div>
+        </div>
+    </ng-template>
+</ng-template>
+<ng-template [ngIf]="!ifSearch()"> 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div *ngIf="isNotAdmin else isAdmin">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-2 pl-2">
+                                <strong> Fecha de la Solicitud </strong>
+                            </div>
+                            <div class="col-md-5 pl-5">
+                                <strong> Tipo de Licencia Solicitada </strong>
+                            </div>
+                            <div class="col-md-3">
+                                <strong> Número de Orden </strong> 
+                            </div>
+                            <div class="text-center col-md-1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item click" 
+                            style="cursor: pointer"
+                            *ngFor="let item of request$ | async;" 
+                            (click)="onViewItem(item.requestCode)">
+                                <div class="row">
+                                    <div class="text-left col-md-2">
+                                        {{item.requestDate | date}}
+                                    </div>
+                                    <div class="text-left col-md-5">
+                                        {{item.requestType.licenseTypeName}}
+                                    </div>
+                                    <div class="text-left col-md-3">
+                                        <strong> </strong>  {{item.requestOrderNumber}} 
+                                    </div>
+                                    <div class="text-center col-md-1">
+                                        <button
+                                        class="btn btn-danger"
+                                        type="button" [disabled]="inValidButton(item.requestStatus)" (click)="onCheckItem(item.requestCode, item.requestStatus)">{{item.requestStatus}} </button> 
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <ng-template #isAdmin>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-3 pl-2">
+                                <strong> Fecha de la Solicitud </strong>
+                            </div>
+                            <div class="col-md-6 pl-5">
+                                <strong> Tipo de Licencia Solicitada </strong>
+                            </div>
+                            <div class="col-md-3">
+                                <strong> Número de Orden </strong> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item click" 
+                            style="cursor: pointer"
+                            *ngFor="let item of request$ | async;" 
+                            (click)="onViewItem(item.requestCode)">
+                                <div class="row">
+                                    <div class="text-left col-md-3">
+                                        {{item.requestDate | date}}
+                                    </div>
+                                    <div class="text-left col-md-6">
+                                        {{item.requestType.licenseTypeName}}
+                                    </div>
+                                    <div class="text-left col-md-3">
+                                        <strong> </strong>  {{item.requestOrderNumber}} 
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</ng-template>

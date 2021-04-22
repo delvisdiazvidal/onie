@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light align-items-center">
+
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" [routerLink]="['/']">
+      <img src="assets/img/onie-logo.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+      ONIE Licencias</a>
+
+    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+      <ng-template [ngIf]="isUserAdmin"> 
+          <ui-header-admin></ui-header-admin>
+      </ng-template>
+      <ng-template [ngIf]="isUserAdvanced()"> 
+          <ui-header-advanced></ui-header-advanced>
+      </ng-template>
+      <ng-template [ngIf]="isUser()"> 
+          <ui-header-user></ui-header-user>
+      </ng-template>
+      <ng-template [ngIf]="notLogged()"> 
+          <ui-header-front></ui-header-front>
+      </ng-template>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+
+        <ng-template [ngIf]="isLogged()">
+            <div ngbDropdown class="d-inline-block">
+              <a class="dropdown-toggle" style="cursor: pointer" role="button" id="dropdownHeader" ngbDropdownToggle><strong>Usuario:</strong> {{user.firstName}} {{user.lastName}} <span class="caret"></span></a>
+              <div ngbDropdownMenu aria-labelledby="dropdownHeader" class="dropdown-menu-right">
+                <button ngbDropdownItem [routerLink]="['/perfil']">Mi Perfil</button>
+                <button ngbDropdownItem [routerLink]="['/contraseña']">Contraseña</button>
+                <div class="dropdown-divider"></div>
+                <button ngbDropdownItem (click)="onLogOut()">Salir</button>
+              </div>
+            </div>
+        </ng-template>
+
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" *ngIf="!isLogged()">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/entrar']" routerLinkActive="active" >Entrar</a>
+          </li>
+        </ul>
+
+    </ul> 
+    
+</nav>
+
+  

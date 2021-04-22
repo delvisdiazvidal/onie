@@ -1,0 +1,12 @@
+a {
+    color: #212529;
+}
+
+a:active {
+    background-color: gray;
+}
+
+a:hover {
+    text-decoration: none;
+    font-size: 110%;
+}

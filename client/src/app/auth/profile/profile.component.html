@@ -1,0 +1,29 @@
+<div class="col-md-5 offset-md-7">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ user.userRol.roleName }}</h6>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Usuario:</strong> {{ user.username }} </li>
+                <li class="list-group-item"><strong>Teléfono:</strong> {{ user.personPhone }}</li>
+                <li class="list-group-item"><strong>Email:</strong> {{ user.personEmail }}</li>
+                <li class="list-group-item"><strong>CI:</strong> {{ user.personCI }} </li>
+                <li class="list-group-item"><strong>Direccion Particular:</strong> {{ user.personDir }}</li>
+                <li class="list-group-item"><strong>Fecha de Registro:</strong> {{ user.createAt | date }}</li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-9">
+                   <p>Ult Actualización: {{ user.modifyAt | timeAgo }}</p>  
+                </div>
+                <div class="col-md-3">
+                    <a class="btn btn-primary" [routerLink]="['/editar-perfil']" >Editar</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<h5 class="card-title">Listado de Licencias Otorgadas</h5>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                <div class="col-md-2 pl-2">
+                    <strong> Fecha de Licencia  </strong>
+                </div>
+                <div class="col-md-6">
+                    <strong> Tipo de Licencia </strong>
+                </div>
+                <div class="col-md-2">
+                    <strong> Identificador </strong> 
+                </div>
+                <div class="col-md-2">
+                    <strong> Estado </strong> 
+                </div>
+            </div></div>
+            <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item click" 
+                style="cursor: pointer"
+                *ngFor="let item of license$ | async;" 
+                (click)="onShowLicense(item.licenseCode)">
+                    <div class="row">
+                        <div class="text-left col-md-2">
+                            {{item.licenseDate | date}}
+                        </div>
+                        <div class="text-left col-md-6">
+                            {{item.licenseType.licenseTypeName}}
+                        </div>
+                        <div class="text-left col-md-2">
+                           {{item.licenseIdentificator}} 
+                        </div>
+                        <div class="text-center col-md-2">
+                            {{item.licenseStatus}} 
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        </div>
+    </div>
+</div>

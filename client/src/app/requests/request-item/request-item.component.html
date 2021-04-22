@@ -1,0 +1,187 @@
+<div *ngIf="requestItem">
+    <div class="card-header">
+        <h5 class="card-title">Solicitud de {{requestItem.requestType.licenseTypeName}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Solicitud No. <strong>{{requestItem.requestOrderNumber}}</strong> - {{requestItem.requestProvince}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Estado de la Solicitud: <strong>{{requestItem.requestStatus}}</strong></h6>
+    </div>
+    <div class="card-body">
+
+        <ng-template [ngIf]="isAquaculturePrivate()"> 
+            <p class="mb-0 text-uppercase"><strong>SOLICITANTE</strong></p>
+            <strong>NOMBRES Y APELLIDOS: </strong> {{requestItem.requestPerson.firstName}} {{requestItem.requestPerson.lastName}}<br>
+            <strong>CI: </strong> {{requestItem.requestPerson.personCI}} <br>
+            <strong>EMAIL: </strong> {{requestItem.requestPerson.personEmail}} <br>
+            <strong>TELEFONO: </strong> {{requestItem.requestPerson.personPhone}}<br>
+            <strong>DIRECCION: </strong> {{requestItem.requestPerson.personDir}}<br>
+            <strong>MUNICIPIO: </strong>{{getMun(requestItem.requestPerson.personMunicipalite)}} <br>
+            <strong>PROVINCIA: </strong>{{getProv(requestItem.requestPerson.personProvince)}}
+        </ng-template>
+
+        
+        <ng-template [ngIf]="isAquacultureState() && requestItem.requestCompany"> 
+            <p class="mb-0"><strong>EMPRESA</strong></p>
+            <strong>ENTIDAD: </strong> {{requestItem.requestCompany.companyName}}<br>
+            <strong>REEUP: </strong> {{requestItem.requestCompany.companyREEUP}} <br>
+            <strong>EMPRESA: </strong> {{requestItem.requestCompany.companyEntity}}<br>
+            <strong>DIRECCION: </strong> {{requestItem.requestCompany.companyDir}}<br>
+            <strong>MUNICIPIO: </strong>{{getMun(requestItem.requestPerson.personMunicipalite)}} <br>
+            <strong>PROVINCIA: </strong>{{getProv(requestItem.requestPerson.personProvince)}}
+            
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>EMBARCACIONES QUE SE UTILIZÁN</strong></p>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="text-right col-md-2">
+                        <strong>Código</strong>
+                        </div>
+                        <div class="text-left col-md-4">
+                            <strong>Embarcación</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" 
+                *ngFor="let shipItem of requestItem.requestShipList;">
+                    <div class="row">
+                        <div class="text-right col-md-2">
+                        {{shipItem.shipCode}}
+                        </div>
+                        <div class="text-left col-md-4">
+                            {{shipItem.shipName}} 
+                        </div>
+                    </div>
+                </div>
+                
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>ACUATORIOS QUE SERÁN OBJETO DE EXPLOTACIÓN</strong></p>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="text-right col-md-2">
+                    <strong>Código</strong>
+                    </div>
+                    <div class="text-left col-md-4">
+                        <strong>Embalse</strong>
+                    </div>
+                    <div class="text-right col-md-2">
+                        <strong>Superficie</strong> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" 
+            *ngFor="let wmItem of requestItem.requestReservoirList;">
+                <div class="row">
+                    <div class="text-right col-md-2">
+                        {{wmItem.reservoirCode}}
+                    </div>
+                    <div class="text-left col-md-4">
+                        {{wmItem.reservoirName}} 
+                    </div>
+                    <div class="text-right col-md-2">
+                        {{wmItem.reservoirSurface}} 
+                    </div>
+                </div>
+            </div>
+            <strong>Certificado de Recursos Hidráulicos. </strong>
+            <a href="{{getUrl(requestItem.iRHCertificateFile)}}" target="_blank"> (Ver)</a> 
+            
+        </ng-template>
+
+        <ng-template [ngIf]="isPlatformPrivate() && requestItem.requestPerson && requestItem.requestShip"> 
+            <p class="mb-0 text-uppercase"><strong>SOLICITANTE</strong></p>
+            <strong>NOMBRES Y APELLIDOS: </strong> {{requestItem.requestPerson.firstName}} {{requestItem.requestPerson.lastName}}<br>
+            <strong>CI: </strong> {{requestItem.requestPerson.personCI}} <br>
+            <strong>EMAIL: </strong> {{requestItem.requestPerson.personEmail}} <br>
+            <strong>TELEFONO: </strong> {{requestItem.requestPerson.personPhone}}<br>
+            <strong>DIRECCION: </strong> {{requestItem.requestPerson.personDir}}<br>
+            <strong>MUNICIPIO: </strong>{{getMun(requestItem.requestPerson.personMunicipalite)}} <br>
+            <strong>PROVINCIA: </strong>{{getProv(requestItem.requestPerson.personProvince)}}
+           
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>Datos de la Embarcación</strong></p>
+            <strong>NOMBRE </strong> {{requestItem.requestShip.shipName}} <br>
+            <strong>FOLIO: </strong> {{requestItem.requestShip.shipFolio}} 
+            <strong>LISTA: </strong> {{requestItem.requestShip.shipRegistry}}<br>
+            <strong>ESLORA: </strong>{{requestItem.requestShip.shipLength}} 
+            <strong>MANGA: </strong>{{requestItem.requestShip.shipBreadth}} <br>
+            <strong>CAPITÁN: </strong> {{requestItem.requestShipCaptain.firstName}} {{requestItem.requestShipCaptain.lastName}} <br>
+            <strong>CI: </strong> {{requestItem.requestShipCaptain.personCI}} <br>
+            <strong>DIRECCION: </strong> {{requestItem.requestShipCaptain.personDir}}, 
+            {{getMun(requestItem.requestShipCaptain.personMunicipalite)}}, 
+            {{getProv(requestItem.requestShipCaptain.personProvince)}} <br>
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>Tipo de pesquería en la que participará la embarcación y especies a capturar</strong></p>
+            <ol>
+                <li *ngFor="let requestFishery of requestItem.requestFisheryType">
+                    {{requestFishery.fisheryName}} ($ {{requestFishery.fisheryAmount}})
+                </li>
+            </ol>
+            <p class="mb-0 text-uppercase"><strong>artes de pesca</strong></p>
+            {{requestItem.requestFisheryCraft.fisherycraftName}} - {{requestItem.requestFisheryCraft.fisherycraftMaxCant}} <br> 
+            {{requestItem.requestFisheryCraft.fisherycraftDescription}}<br>
+            <p class="mb-0 text-uppercase"><strong>áreas de operación pesquera:</strong> </p>
+            <p class="text-capitalize">{{requestItem.fisheringAreas}}</p>
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>Contratos</strong></p>
+            <strong>Contrato con la Empresa Estatal Acuícola No. {{requestItem.requestContractNumber}}</strong> 
+            <a href="{{getUrl(requestItem.requestContract)}}" target="_blank"> (Ver)</a> 
+        </ng-template>
+
+        <ng-template [ngIf]="isPlatformState() && requestItem.requestCompany && requestItem.requestShip"> 
+            <p class="mb-0"><strong>EMPRESA</strong></p>
+            <strong>ENTIDAD: </strong> {{requestItem.requestCompany.companyName}}<br>
+            <strong>REEUP: </strong> {{requestItem.requestCompany.companyREEUP}} <br>
+            <strong>EMPRESA: </strong> {{requestItem.requestCompany.companyEntity}}<br>
+            <strong>DIRECCION: </strong> {{requestItem.requestCompany.companyDir}}<br>
+            <strong>MUNICIPIO: </strong>{{getMun(requestItem.requestPerson.personMunicipalite)}} <br>
+            <strong>PROVINCIA: </strong>{{getProv(requestItem.requestPerson.personProvince)}}
+            
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>Datos de la Embarcación</strong></p>
+            <strong>NOMBRE </strong> {{requestItem.requestShip.shipName}} <br>
+            <strong>FOLIO: </strong> {{requestItem.requestShip.shipFolio}} 
+            <strong>LISTA: </strong> {{requestItem.requestShip.shipRegistry}}<br>
+            <strong>ESLORA: </strong>{{requestItem.requestShip.shipLength}} 
+            <strong>MANGA: </strong>{{requestItem.requestShip.shipBreadth}} <br>
+            <strong>CAPITÁN: </strong> {{requestItem.requestShipCaptain.firstName}} {{requestItem.requestShipCaptain.lastName}}<br>
+            <strong>CI: </strong> {{requestItem.requestShipCaptain.personCI}} <br>
+            <strong>DIRECCION: </strong> {{requestItem.requestShipCaptain.personDir}}, 
+            {{getMun(requestItem.requestShipCaptain.personMunicipalite)}}, 
+            {{getProv(requestItem.requestShipCaptain.personProvince)}} <br>
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>Tipo de pesquería en la que participará la embarcación y especies a capturar</strong></p>
+            <ol>
+                <li *ngFor="let requestFishery of requestItem.requestFisheryType">
+                    {{requestFishery.fisheryName}} ($ {{requestFishery.fisheryAmount}})
+                </li>
+            </ol>
+            <p class="mb-0 text-uppercase"><strong>artes de pesca</strong></p>
+            {{requestItem.requestFisheryCraft.fisherycraftName}} - {{requestItem.requestFisheryCraft.fisherycraftMaxCant}} <br> 
+            {{requestItem.requestFisheryCraft.fisherycraftDescription}}<br>
+            <p class="mb-0 text-uppercase"><strong>áreas de operación pesquera:</strong> </p>
+            <p class="text-capitalize">{{requestItem.fisheringAreas}}</p>
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>Contratos</strong></p>
+            <strong>Contrato con la Empresa Estatal Acuícola No. {{requestItem.requestContractNumber}}</strong> 
+            <a href="{{getUrl(requestItem.requestContract)}}" target="_blank"> (Ver)</a> 
+        </ng-template>
+
+            <hr>
+            <p class="mb-0 text-uppercase"><strong>DOCUMENTOS</strong></p>
+                <p class="mb-0">
+                    <strong>Certificado de No Adeudo. </strong>
+                    <a href="{{getUrl(requestItem.requestDocs.notTaxDebtFile)}}" target="_blank"> (Ver)</a>
+                </p>
+                <p class="mb-0">
+                    <strong>Certificado de pago de impuesto por la propiedad de las embarcaciones. </strong>
+                    <a href="{{getUrl(requestItem.requestDocs.taxAboutShipPropertyFile)}}" target="_blank"> (Ver)</a>
+                </p>
+                <p class="mb-0">
+                    <strong>Certificado de Matrícula de la Embarcación. </strong>
+                    <a href="{{getUrl(requestItem.requestDocs.boatRegistrationCertificateFile)}}" target="_blank"> (Ver)</a> 
+                </p>
+                <p class="mb-0">
+                    <strong>Certificado de Navegavilidad. </strong>
+                    <a href="{{getUrl(requestItem.requestDocs.certificateOfNavigabilityFile)}}" target="_blank"> (Ver)</a>
+                </p>
+    </div>
+</div>
+

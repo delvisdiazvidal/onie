@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <p class="h4 mb-4">Contáctenos</p>
+        <div *ngFor="let item of contacs$ | async;">
+            <p class="h5"><strong> {{item.ourEntityName}} </strong></p>
+            <p><strong> Dirección: </strong> {{item.ourEntityDir}}</p>
+            <p>Teléfono: <strong> {{item.ourEntityPhone}}</strong> | Correo Electronico: <strong> {{item.ourEntityEmail}}</strong></p>
+            <hr>      
+        </div>
+    </div>
+</div>

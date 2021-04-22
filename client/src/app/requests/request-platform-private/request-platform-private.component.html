@@ -1,0 +1,55 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row"> 
+            <div class="col-sm-9">
+                <h5 class="card-title"></h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{currentStep.description}}</h6>
+            </div>
+            <div class="col-sm-3 text-right">
+                <h5 class="card-title"></h5>
+                <h6 class="card-subtitle mb-2 text-muted">Paso {{currentStep.number}} de {{steps.length}}</h6>
+            </div>
+        </div>
+    </div>
+    <ng-template [ngIf]="setStep('PersonalInfo')"> 
+        <ui-person-form
+            [personForm]="addPersonForm">
+        </ui-person-form>
+        <hr>
+        <div class="col-md-12 mb-3">
+            <button class="btn btn-success" [disabled]="inValidPersonForm()" (click)="goNext()">{{currentStep.next.title}}</button>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="setStep('ShipInfo')"> 
+        <ui-ship-form
+            [shipForm]="addShipForm"
+            [fisherys]="fisherys">
+        </ui-ship-form>
+        <hr>
+        <div class="col-md-12 mb-3">
+            <button class="btn btn-success" (click)="goBack()" style="margin-right: 10px">{{currentStep.back.title}}</button>
+            <button class="btn btn-success" [disabled]="inValidShipForm()" (click)="goNext()">{{currentStep.next.title}}</button>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="setStep('CaptainInfo')"> 
+        <ui-person-form
+            [personForm]="addCaptainForm">
+        </ui-person-form>
+        <hr>
+        <div class="col-md-12 mb-3">
+            <button class="btn btn-success" (click)="goBack()" style="margin-right: 10px">{{currentStep.back.title}}</button>
+            <button class="btn btn-success" [disabled]="inValidCaptainForm()" (click)="goNext()">{{currentStep.next.title}}</button>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="setStep('DocsInfo')"> 
+        <ui-docs-form
+            [docsForm]="addDocsForm"
+            [contract]="true">
+        </ui-docs-form>
+        <hr>
+        <div class="col-md-12 mb-3">
+            <button class="btn btn-success" (click)="goBack()" style="margin-right: 10px">{{currentStep.back.title}}</button>
+            <button class="btn btn-success" [disabled]="inValidDocForm()" (click)="onSubmit()">{{currentStep.next.title}}</button>
+        </div>
+    </ng-template>
+</div>

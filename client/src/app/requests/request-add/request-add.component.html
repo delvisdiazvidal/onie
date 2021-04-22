@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-inline" [formGroup]="searchForm">
+            <input class="form-control mr-sm-2 search" 
+                    id="searchValue"  
+                    formControlName="searchValue" 
+                    type="search" 
+                    min="11"
+                    max="20"
+                    placeholder="Consulte el estado de su Solicitud"
+                    aria-describedby="searchHelpBlock" 
+                    aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" [disabled]="inValidSearch()" (click)="onSearch()">Buscar</button>
+            <small id="searchHelpBlock" class="form-text text-muted ml-3">
+                Introduzca su Número de Orden o su Carnet de Identidad
+            </small>
+        </form>
+    </div>
+</div>
+<hr>
+<ng-template [ngIf]="ifSearch()"> 
+    <ng-template [ngIf]="requestDetails"> 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <ui-request-item [requestItem]="requestDetails"></ui-request-item>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="requestsList && requestsList[0]"> 
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"></h5>
+                <h6 class="card-subtitle mb-2 text-muted">Cliente:  <strong>{{requestsList[0].requestPerson.personName}} {{requestsList[0].requestPerson.personLastName}}</strong></h6>
+                <h6 class="card-subtitle mb-2 text-muted"><strong>Provincia: </strong> {{requestsList[0].requestProvince}}</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item click" 
+                    style="cursor: pointer"
+                    *ngFor="let item of requestsList" 
+                    (click)="onItemView(item.requestCode)">
+                        <div class="col-md-12">
+                            <div class="text-left row-md-4">
+                                <h6> {{item.requestType.licenseTypeName}} </h6>
+                            </div>
+                            <div class="text-left row-md-4">
+                                <strong>Fecha: </strong> {{item.requestDate | date}} | <strong>No. de Orden: </strong>{{item.requestOrderNumber}}  | <strong>Estado: </strong>{{item.requestStatus}} 
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="!requestDetails && !requestsList[0]"> 
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                Su busqueda no coincide con ninguna Solicitud en nuestra base de datos. Confirme su Número de Orden e intente nuevamente.
+            </div>
+        </div>
+    </ng-template>
+</ng-template>
+<ng-template [ngIf]="!ifSearch()"> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Pesca Acuícola no Estatal</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Solicitud de Licencia</h6>
+                    <p class="card-text">Consulte <a href="{{getAPDoc()}}"  target="_blank" title="Documentacion para la Solicitud" class="card-link">acá</a> para conocer toda la documentación necesaria para realizar este trámite.</p>
+                    <button class="btn btn-primary" (click)="onNewRequestAquaculturePrivate()">Solicitar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Pesca Acuícola Estatal</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Solicitud de Licencia</h6>
+                    <p class="card-text">Consulte <a href="{{getASDoc()}}"  target="_blank" title="Documentacion para la Solicitud" class="card-link">acá</a> para conocer toda la documentación necesaria para realizar este trámite.</p> 
+                    <button class="btn btn-primary" (click)="onNewRequestAquacultureState()">Solicitar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Pesca de Plataforma no Estatal</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Solicitud de Licencia</h6>
+                    <p class="card-text">Consulte <a href="{{getPPDoc()}}"  target="_blank" title="Documentacion para la Solicitud" class="card-link">acá</a> para conocer toda la documentación necesaria para realizar este trámite.</p> 
+                    <button class="btn btn-primary" (click)="onNewRequestPlatformPrivate()">Solicitar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Pesca de Plataforma Estatal</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Solicitud de Licencia</h6>
+                    <p class="card-text">Consulte <a href="{{getPSDoc()}}"  target="_blank" title="Documentacion para la Solicitud" class="card-link">acá</a> para conocer toda la documentación necesaria para realizar este trámite.</p> 
+                    <button class="btn btn-primary" (click)="onNewRequestPlatformState()">Solicitar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+

@@ -1,0 +1,13 @@
+a {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+}
+
+a:focus {
+    font-weight: bold;
+}
+
+a:hover {
+    font-weight: bold;
+}

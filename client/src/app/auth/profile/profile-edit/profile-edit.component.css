@@ -1,0 +1,18 @@
+    .card-footer{
+        /* padding: .05rem .05rem; */
+        padding: 0;
+    }
+    
+    .btn-cancel{
+    height: 50px;
+    width: 50%;
+    border-radius: 0px;
+    border: 1px solid #ced4da;
+    }
+    
+    .btn-save{
+      height: 50px;
+      width: 50%;
+      border-radius: 0px;
+      border: 1px solid #ced4da;
+    }

@@ -1,0 +1,159 @@
+<form [formGroup]="docsForm">
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="licenseNotTaxDebt" class="text-muted">Adjuntar Certificación de No Adeudo</label>
+                <input type="file" 
+                        id="licenseNotTaxDebt" 
+                        formControlName="licenseNotTaxDebt" 
+                        class="form-control"
+                        accept="image/jpeg, image/png, application/pdf"
+                        (change)="setNotTaxDebt($event)"
+                        aria-describedby="notTaxDebtHelpBlock"
+                        placeholder="Cerficación de No Adeudo">
+                        <small *ngIf="licenseNotTaxDebt.valid || licenseNotTaxDebt.untouched" id="notTaxDebtHelpBlock" class="form-text text-muted ml-3">
+                            Formatos permitidos: .pdf .png .jpg
+                        </small>
+                        <small *ngIf="licenseNotTaxDebt.invalid && licenseNotTaxDebt.touched">
+                            <small class="text-danger" *ngIf="licenseNotTaxDebt.errors.required">{{errors.required}}<br></small>
+                            <small class="text-danger" *ngIf="licenseNotTaxDebt.errors.extension">{{errors.extension}}<br></small>
+                        </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="licenseTaxAboutShipProperty" class="text-muted">Adjuntar Certificado de pago de impuesto por la propiedad de la embarcación </label>
+                <input type="file" 
+                        id="licenseTaxAboutShipProperty" 
+                        formControlName="licenseTaxAboutShipProperty" 
+                        class="form-control"
+                        accept="image/jpeg, image/png, application/pdf"
+                        aria-describedby="taxAboutShipPropertyHelpBlock"
+                        (change)="setTaxAboutShipProperty($event)"
+                        placeholder="Certificado de pago de impuesto">
+                        <small *ngIf="licenseTaxAboutShipProperty.valid || licenseTaxAboutShipProperty.untouched" id="taxAboutShipPropertyHelpBlock" class="form-text text-muted ml-3">
+                            Formatos permitidos: .pdf .png .jpg
+                        </small>
+                        <small *ngIf="licenseTaxAboutShipProperty.invalid && licenseTaxAboutShipProperty.touched">
+                            <small class="text-danger" *ngIf="licenseTaxAboutShipProperty.errors.required">{{errors.required}}<br></small>
+                            <small class="text-danger" *ngIf="licenseTaxAboutShipProperty.errors.extension">{{errors.extension}}<br></small>
+                        </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="licenseBoatRegistrationCertificate" class="text-muted">Adjuntar Certificado de Matrícula de la Embarcación </label>
+                <input type="file" 
+                        id="licenseBoatRegistrationCertificate" 
+                        formControlName="licenseBoatRegistrationCertificate" 
+                        class="form-control"
+                        accept="image/jpeg, image/png, application/pdf"
+                        aria-describedby="certificateHelpBlock"
+                        (change)="setBoatRegistrationCertificate($event)"
+                        placeholder="Certificado de Matrícula">
+                        <small *ngIf="licenseBoatRegistrationCertificate.valid || licenseBoatRegistrationCertificate.untouched" id="certificateHelpBlock" class="form-text text-muted ml-3">
+                            Formatos permitidos: .pdf .png .jpg
+                        </small>
+                        <small *ngIf="licenseBoatRegistrationCertificate.invalid && licenseBoatRegistrationCertificate.touched">
+                            <small class="text-danger" *ngIf="licenseBoatRegistrationCertificate.errors.required">{{errors.required}}<br></small>
+                            <small class="text-danger" *ngIf="licenseBoatRegistrationCertificate.errors.extension">{{errors.extension}}<br></small>
+                        </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="licenseCertificateOfNavigability" class="text-muted">Adjuntar Certificado de Navegavilidad </label>
+                <input type="file" 
+                        id="licenseCertificateOfNavigability" 
+                        formControlName="licenseCertificateOfNavigability" 
+                        class="form-control"
+                        accept="image/jpeg, image/png, application/pdf"
+                        aria-describedby="licenseCertificateOfNavigability"
+                        (change)="setCertificateOfNavigability($event)"
+                        placeholder="Certificado de Navegavilidad">
+                        <small *ngIf="licenseCertificateOfNavigability.valid || licenseCertificateOfNavigability.untouched" id="licenseCertificateOfNavigability" class="form-text text-muted ml-3">
+                            Formatos permitidos: .pdf .png .jpg
+                        </small>
+                        <small *ngIf="licenseCertificateOfNavigability.invalid && licenseCertificateOfNavigability.touched">
+                            <small class="text-danger" *ngIf="licenseCertificateOfNavigability.errors.required">{{errors.required}}<br></small>
+                            <small class="text-danger" *ngIf="licenseCertificateOfNavigability.errors.extension">{{errors.extension}}<br></small>
+                        </small>
+            </div>
+        </div>
+    </div>
+    <ng-template [ngIf]="contract"> 
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="licenseContractNumber" class="text-muted">Contrato firmado con la Entidad Estatal Empleadora</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-n3">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input type="text" 
+                            id="licenseContractNumber" 
+                            formControlName="licenseContractNumber" 
+                            class="form-control"
+                            (change)="setUpdate($event)"
+                            placeholder="No. Contrato">
+                            <small *ngIf="licenseContractNumber.invalid && licenseContractNumber.touched">
+                                <small class="text-danger" *ngIf="licenseContractNumber.errors.required">{{errors.required}}</small>
+                            </small>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <input type="file" 
+                            id="licenseContract" 
+                            formControlName="licenseContract" 
+                            class="form-control"
+                            accept="image/jpeg, image/png, application/pdf"
+                            aria-describedby="licenseContract"
+                            (change)="setLicenseContract($event)"
+                            placeholder="Primera página">
+                            <small *ngIf="licenseContract.valid || licenseCertificateOfNavigability.untouched" id="licenseContract" class="form-text text-muted ml-3">
+                                Formatos permitidos: .pdf .png .jpg
+                            </small>
+                            <small *ngIf="licenseContract.invalid && licenseContract.touched">
+                                <small class="text-danger" *ngIf="licenseContract.errors.required">{{errors.required}}<br></small>
+                                <small class="text-danger" *ngIf="licenseContract.errors.extension">{{errors.extension}}<br></small>
+                            </small>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="irh"> 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="licenseIRHCertificate" class="text-muted">Adjuntar Certificado de Recursos Hidráulicos </label>
+                    <input type="file" 
+                            id="licenseIRHCertificate" 
+                            formControlName="licenseIRHCertificate" 
+                            aria-describedby="licenseIRHCertificate"
+                            (change)="setIRHCertificate($event)"
+                            class="form-control"
+                            placeholder="Certificado de Recursos Hidráulicos">
+                            <small *ngIf="licenseIRHCertificate.valid || licenseIRHCertificate.untouched" id="licenseIRHCertificate" class="form-text text-muted ml-3">
+                                Formatos permitidos: .pdf .png .jpg
+                            </small>
+                            <small *ngIf="licenseIRHCertificate.invalid && licenseIRHCertificate.touched">
+                                <small class="text-danger" *ngIf="licenseIRHCertificate.errors.required">{{errors.required}}<br></small>
+                                <small class="text-danger" *ngIf="licenseIRHCertificate.errors.extension">{{errors.extension}}<br></small>
+                            </small>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+</form>
+

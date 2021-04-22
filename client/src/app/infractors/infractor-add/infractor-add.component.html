@@ -1,0 +1,168 @@
+<div *ngIf="provinces && municipalites">
+    <div class="card">
+        <div class="card-header">
+                <h5 class="card-title"></h5>
+                <h6 class="card-subtitle mb-2 text-muted">Insertar nueva infracción</h6>
+        </div>
+        <form [formGroup]="infractorForm">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="penaltyTicket" class=" text-muted">Penalización No.:</label>
+                        <input type="text" 
+                                id="penaltyTicket" 
+                                formControlName="penaltyTicket" 
+                                class="form-control">
+                                <small *ngIf="penaltyTicket.invalid && penaltyTicket.touched">
+                                    <small class="text-danger" *ngIf="penaltyTicket.errors.required">{{errors.required}}</small>
+                                    <small class="text-danger" *ngIf="penaltyTicket.errors.noCode">{{errors.generic}}</small>
+                                </small>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="penaltyAmount" class=" text-muted">Importe</label>
+                        <input type="number" 
+                                id="penaltyAmount" 
+                                min="0"
+                                formControlName="penaltyAmount" 
+                                class="form-control">
+                                <small *ngIf="penaltyAmount.invalid && penaltyAmount.touched" >
+                                    <small class="text-danger" *ngIf="penaltyAmount.errors.required">{{errors.required}}</small>
+                                    <small class="text-danger" *ngIf="penaltyAmount.errors.nonZero">{{errors.nonZero}}</small>
+                                </small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="penaltyOffense" class=" text-muted">Resolución</label>
+                        <select class="form-control"
+                                id="penaltyOffense" 
+                                formControlName="penaltyOffense">
+                                <option value="4">Resolución 129 Artículo 32 Inciso 12</option>
+                                <option value="5">Resolución 129 Artículo 32 Inciso 16</option>
+                                <option value="6">Resolución 129 Artículo 32 Inciso 19</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="penaltyPersonName" class=" text-muted">Nombres y Apellidos</label>
+                        <input type="text" 
+                                id="penaltyPersonName" 
+                                formControlName="penaltyPersonName" 
+                                class="form-control">
+                                <small *ngIf="penaltyPersonName.invalid && penaltyPersonName.touched">
+                                    <small class="text-danger" *ngIf="penaltyPersonName.errors.required">{{errors.required}}</small>
+                                    <small class="text-danger" *ngIf="penaltyPersonName.errors.noSpecial">{{errors.text}}</small>
+                                </small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="penaltyPersonCI" class=" text-muted">C. Identidad</label>
+                        <input type="text" 
+                                id="penaltyPersonCI" 
+                                formControlName="penaltyPersonCI" 
+                                maxlength="11"
+                                class="form-control">
+                                <small *ngIf="penaltyPersonCI.invalid && penaltyPersonCI.touched">
+                                    <small class="text-danger" *ngIf="penaltyPersonCI.errors.required">{{errors.required}}<br></small>
+                                    <small class="text-danger" *ngIf="penaltyPersonCI.errors.pattern">{{errors.pattern}}<br></small>
+                                    <small class="text-danger" *ngIf="penaltyPersonCI.errors.minlength">{{errors.minLength}}<br></small>
+                                    <small class="text-danger" *ngIf="penaltyPersonCI.errors.maxlength">{{errors.maxLength}}<br></small>
+                                </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="penaltyPersonDir" class=" text-muted">Domicilio Legal</label>
+                        <textarea 
+                            type="text" 
+                            class="form-control" 
+                            formControlName="penaltyPersonDir" 
+                            id="penaltyPersonDir" 
+                            rows="3">
+                        </textarea>
+                        <small *ngIf="penaltyPersonDir.invalid && penaltyPersonDir.touched">
+                            <small class="text-danger" *ngIf="penaltyPersonDir.errors.required">{{errors.required}}</small>
+                            <small class="text-danger" *ngIf="penaltyPersonDir.errors.usualPattern">{{errors.text}}</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="penaltyPersonProvince" class=" text-muted">Provincia</label>
+                        <select class="form-control"
+                                id="penaltyPersonProvince" 
+                                formControlName="penaltyPersonProvince"
+                                (change)="onSelect($event)">
+                                <option *ngFor="let item of provinces" 
+                                    [value]="item.provinceCode">
+                                    {{item.provinceName}} ({{item.provinceAB}})
+                                </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label for="penaltyPersonMunicipalite" class=" text-muted">Municipio</label>
+                        <select class="form-control"
+                                id="penaltyPersonMunicipalite" 
+                                formControlName="penaltyPersonMunicipalite">
+                                <option *ngFor="let item of municipalites" 
+                                    [value]="item.municipaliteCode">
+                                    {{item.municipaliteName}}
+                                </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label for="penaltyInspector" class=" text-muted">Inspector</label>
+                        <input type="text" 
+                                id="penaltyInspector" 
+                                formControlName="penaltyInspector" 
+                                class="form-control">
+                                <small *ngIf="penaltyInspector.invalid && penaltyInspector.touched">
+                                    <small class="text-danger" *ngIf="penaltyInspector.errors.required">{{errors.required}}</small>
+                                    <small class="text-danger" *ngIf="penaltyInspector.errors.noSpecial">{{errors.text}}</small>
+                                </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="penaltyObservations" class=" text-muted">Observaciones</label>
+                        <textarea 
+                            type="text" 
+                            class="form-control" 
+                            formControlName="penaltyObservations" 
+                            id="penaltyObservations" 
+                            rows="5">
+                        </textarea>
+                        <small *ngIf="penaltyObservations.invalid && penaltyObservations.touched">
+                            <small class="text-danger" *ngIf="penaltyObservations.errors.required">{{errors.required}}</small>
+                            <small class="text-danger" *ngIf="penaltyObservations.errors.usualPattern">{{errors.text}}</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+        <div class="card-footer">
+            <button class="btn-cancel" (click)="onCancel()">Cancelar</button>
+            <button class="btn-save" [disabled]="inValidForm()" (click)="onSubmit()">Guardar</button>
+        </div>
+    </div>
+</div>    

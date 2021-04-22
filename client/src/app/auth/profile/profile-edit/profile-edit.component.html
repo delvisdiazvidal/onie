@@ -1,0 +1,42 @@
+<div class="col-md-5 offset-md-7">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title"></h5>
+            <h6 class="card-subtitle mb-2 text-muted">Editando Perfil</h6>
+        </div>
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <div class="card-body">
+                <div class="form-group">
+                    <label for="firstName">Nombre Completo</label>
+                    <input type="text" 
+                            id="firstName" 
+                            formControlName="firstName" 
+                            class="form-control"
+                            placeholder="Nombre Completo">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Apellidos</label>
+                    <input type="text" 
+                            id="lastName" 
+                            formControlName="lastName" 
+                            class="form-control"
+                            placeholder="Apellidos">
+                </div>
+                <div class="form-group">
+                    <label for="personDir">Dirección Particular</label>
+                    <textarea type="text" 
+                            class="form-control" 
+                            formControlName="personDir" 
+                            id="personDir" 
+                            rows="6"
+                            placeholder="Dirección Particular">
+                    </textarea>
+                </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn-cancel" (click)="onCancel()">Cancelar</button>
+            <button class="btn-save" type="submit" [disabled]="!editForm.valid">Guardar</button>
+        </div>
+        </form>
+    </div>
+</div>

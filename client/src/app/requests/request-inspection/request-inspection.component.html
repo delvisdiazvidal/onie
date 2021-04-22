@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <ui-request-item [requestItem]="requestItem"></ui-request-item>
+            <hr>
+            <div class="card-body">
+                <form [formGroup]="inspectionForm">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="licenseIdentificator">Folio de la Licencia</span>
+                                </div>
+                                <input type="text" 
+                                        id="licenseIdentificator" 
+                                        maxlength="30"
+                                        formControlName="licenseIdentificator" 
+                                        class="form-control" 
+                                        aria-describedby="licenseIdentificator">
+                            </div>
+                            <small *ngIf="licenseIdentificator.invalid && licenseIdentificator.touched">
+                                <small class="text-danger" *ngIf="licenseIdentificator.errors.required">{{errors.required}}</small>
+                                <small class="text-danger" *ngIf="licenseIdentificator.errors.alphaNumeric">{{errors.alphanumeric}}</small>
+                            </small>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">Importe ($)</span>
+                                </div>
+                                <input type="number" 
+                                        min="0"
+                                        id="licenseAmount" 
+                                        formControlName="licenseAmount" 
+                                        class="form-control text-right" 
+                                        aria-label="Importe (Total de la Licencia)">
+                                        
+                            </div>
+                            <small *ngIf="licenseAmount.invalid && licenseAmount.touched">
+                                <small class="text-danger" *ngIf="licenseAmount.errors.required">{{errors.required}}</small>
+                                <small class="text-danger" *ngIf="licenseAmount.errors.nonZero">{{errors.nonZero}}</small>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="obserInspection">Observaciones</label>
+                            <textarea type="text" 
+                                    class="form-control" 
+                                    formControlName="obserInspection" 
+                                    id="obserInspection" 
+                                    rows="6">
+                            </textarea>
+                            <small *ngIf="obserInspection.invalid && obserInspection.touched">
+                                <small class="text-danger" *ngIf="obserInspection.errors.required">{{errors.required}}<br></small>
+                                <small class="text-danger" *ngIf="obserInspection.errors.usualPattern">{{errors.text}}</small>
+                            </small>
+                        </div> 
+                    </div>
+                
+                </form>
+            </div>
+            <div class="card-footer">
+                <button class="btn-cancel" [disabled]="inValidFormToDenied()" (click)="onDenied()">Denegar Solicitud</button>
+                <button class="btn-save" [disabled]="inValidFormToAcepted()" (click)="onAcepted()" >Asentar Licencia</button>
+            </div>
+        </div>
+    </div>
+</div>
+

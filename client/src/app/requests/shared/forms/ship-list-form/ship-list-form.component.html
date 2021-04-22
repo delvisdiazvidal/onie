@@ -1,0 +1,87 @@
+<form [formGroup]="shipsForm">
+<div class="card-body">
+    <div class="form-group" formArrayName="shipList">
+        <div class="row" 
+            *ngFor="let item of getControlsShipList(); let i = index" 
+            [formGroupName]="i"
+            style="margin-top: 10px">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input type="text" 
+                            id="shipName" 
+                            formControlName="shipName" 
+                            class="form-control"
+                            placeholder="Nombre del Barco">
+                            <!-- <div *ngIf="shipName.invalid && shipName.touched" class="alert alert-danger">
+                                <div *ngIf="shipName.errors.required">{{errors.required}}</div>
+                            </div> -->
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="text" 
+                            id="shipRegistry" 
+                            formControlName="shipRegistry" 
+                            class="form-control"
+                            placeholder="Lista">
+                            <!-- <div *ngIf="shipRegistry.invalid && shipRegistry.touched" class="alert alert-danger">
+                                <div *ngIf="shipRegistry.errors.required">{{errors.required}}</div>
+                            </div> -->
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="text" 
+                            id="shipFolio" 
+                            formControlName="shipFolio" 
+                            class="form-control"
+                            placeholder="Folio">
+                            <!-- <div *ngIf="shipFolio.invalid && shipFolio.touched" class="alert alert-danger">
+                                <div *ngIf="shipFolio.errors.required">{{errors.required}}</div>
+                            </div> -->
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="number" 
+                            id="shipLength" 
+                            min="0"
+                            formControlName="shipLength" 
+                            class="form-control"
+                            placeholder="Eslora">
+                            <!-- <div *ngIf="shipLength.invalid && shipLength.touched" class="alert alert-danger">
+                                <div *ngIf="shipLength.errors.required">{{errors.required}}</div>
+                                <div *ngIf="shipLength.errors.required">{{errors.pattern}}</div>
+                            </div> -->
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="number" 
+                            id="shipBreadth" 
+                            min="0"
+                            formControlName="shipBreadth" 
+                            class="form-control"
+                            placeholder="Manga">
+                            <!-- <div *ngIf="shipBreadth.invalid && shipBreadth.touched" class="alert alert-danger">
+                                <div *ngIf="shipBreadth.errors.required">{{errors.required}}</div>
+                                <div *ngIf="shipBreadth.errors.required">{{errors.pattern}}</div>
+                                <small class="text-danger" *ngIf="shipBreadth.errors.nonZero">{{errors.nonZero}}</small>
+                            </div> -->
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-danger" (click)="onDeleteShip(i)">X</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-success"
+            (click)="onAddShip()">Añadir Bote</button>
+        </div>
+    </div>
+</div>
+</form>

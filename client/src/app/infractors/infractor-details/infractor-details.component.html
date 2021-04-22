@@ -1,0 +1,16 @@
+<div *ngIf="penaltyItem">
+    <div class="card-header">
+        <h5 class="card-title">{{penaltyItem.offenderName}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted"> <strong>CI: </strong>{{penaltyItem.offenderCI}} - <strong>Dirección: </strong> {{penaltyItem.offenderDir}}</h6>
+    </div>
+
+    <div class="card-body" *ngFor="let item of penaltyItem.offenderPenalty" >
+        Penalización No. :<strong> {{item.penaltyTicket}} </strong>  <br>
+        <strong>Resolución: </strong> {{item.offenseResolution}}
+        <strong>Artículo: </strong> {{item.offenseArticle}}
+        <strong>Inciso: </strong> {{item.offenseIncised}} 
+        | <strong>Importe: </strong> $ {{item.penaltyAmount}}.00<br>
+        <strong>Fecha de la Penalización:  </strong> {{item.penaltyDate | date}} <br>
+        <strong>Inspector: </strong> {{item.inspectorName}} <br>
+    </div>
+</div>
