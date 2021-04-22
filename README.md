@@ -1,13 +1,12 @@
-# onie
-Nombre del proyecto: Registro y Control de Licencias de Pesca.
-Objetivos:
+# Nombre del proyecto: Registro y Control de Licencias de Pesca.
+# Objetivos:
 1. Proporcionar la herramienta informática que permita la gestión
 electrónica de los permisos y licencias de pesca rectorados por el
 MINAL.
 2. Facilitar las gestiones de los usuarios del registro para obtener los
 permisos y licencias que a través de este se emiten.
 3. Contribuir al desarrollo del gobierno electrónico.
-Descripción:
+# Descripción:
 En julio de 2019 se aprueba por la Asamblea Nacional del Poder Popular la
 LEY DE PESCA, la que establece las regulaciones para el adecuado
 ordenamiento, administración y control de la pesca, en función de la
