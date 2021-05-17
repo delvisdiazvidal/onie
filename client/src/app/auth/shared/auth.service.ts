@@ -57,7 +57,6 @@ export class AuthService {
   }
 
   public get isAdmin(): boolean{
-    console.log(this.userValue);
     return (this.userSubject.value && (this.userSubject.value.userRol.roleShort === Roles.ADMIN)) ? true : false;
   }
 
@@ -127,13 +126,13 @@ export class AuthService {
                     });
   }
 
-  public editProfile(editValue: IProfileUser) {
-    return this.http.put<IResponse>(`${environment.userUrl}/profile/${this.userValue.userCode}`, { editValue })
+  public editProfile(editValue: IUser) {
+    return this.http.put<IResponse>(`${environment.userUrl}/profile/${editValue.userCode}`, { editValue })
                     .subscribe(( res: IResponse ) =>  {
                       const user: IUser = res.result;
                       this.refresh(user);
                       this.notifyService.showSuccess(res.message);
-                    //  this.router.navigate(['/perfil']);
+
                     });
   }
 

@@ -8,9 +8,9 @@
         <form [formGroup]="userForm">
         <div class="card-body">
             <div class="form-group">
-                <input type="text" 
-                        id="username" 
-                        formControlName="username" 
+                <input type="text"
+                        id="username"
+                        formControlName="username"
                         class="form-control"
                         placeholder="Usuario">
                         <small *ngIf="username.invalid && username.touched">
@@ -20,9 +20,9 @@
                         </small>
             </div>
             <div class="form-group">
-                <input type="password" 
-                        id="password" 
-                        formControlName="password" 
+                <input type="password"
+                        id="password"
+                        formControlName="password"
                         class="form-control"
                         placeholder="Contraseña">
                         <small *ngIf="password.invalid && password.touched">
@@ -32,9 +32,9 @@
                         </small>
             </div>
             <div class="form-group">
-                <input type="text" 
-                        id="firstName" 
-                        formControlName="firstName" 
+                <input type="text"
+                        id="firstName"
+                        formControlName="firstName"
                         class="form-control"
                         placeholder="Nombre Completo">
                         <small *ngIf="firstName.invalid && firstName.touched">
@@ -43,9 +43,9 @@
                         </small>
             </div>
             <div class="form-group">
-                <input type="text" 
-                        id="lastName" 
-                        formControlName="lastName" 
+                <input type="text"
+                        id="lastName"
+                        formControlName="lastName"
                         class="form-control"
                         placeholder="Apellidos">
                         <small *ngIf="lastName.invalid && lastName.touched">
@@ -54,9 +54,9 @@
                         </small>
             </div>
             <div class="form-group">
-                <input type="text" 
-                        id="personCI" 
-                        formControlName="personCI" 
+                <input type="text"
+                        id="personCI"
+                        formControlName="personCI"
                         class="form-control"
                         maxlength="11"
                         placeholder="C. Identidad">
@@ -67,7 +67,7 @@
                         </small>
             </div>
             <div class="form-group">
-                <select id="pet-select" 
+                <select id="roleCode"
                         class="form-control"
                         formControlName="roleCode">
                     <option value="30">Inspector Provincial</option>
@@ -76,10 +76,10 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="text" 
-                        id="personPhone" 
+                <input type="text"
+                        id="personPhone"
                         maxlength="10"
-                        formControlName="personPhone" 
+                        formControlName="personPhone"
                         class="form-control"
                         placeholder="Número Telefónico">
                         <small *ngIf="personPhone.invalid && personPhone.touched">
@@ -89,9 +89,9 @@
                         </small>
             </div>
             <div class="form-group">
-                <input type="text" 
-                        id="personEmail" 
-                        formControlName="personEmail" 
+                <input type="text"
+                        id="personEmail"
+                        formControlName="personEmail"
                         class="form-control"
                         placeholder="Correo Electrónico">
                         <small *ngIf="personEmail.invalid && personEmail.touched">
@@ -100,10 +100,10 @@
                         </small>
             </div>
             <div class="form-group">
-                <textarea type="text" 
-                        class="form-control" 
-                        id="personDir" 
-                        formControlName="personDir" 
+                <textarea type="text"
+                        class="form-control"
+                        id="personDir"
+                        formControlName="personDir"
                         rows="6"
                         placeholder="Dirección Particular">
                 </textarea>
@@ -111,14 +111,14 @@
                     <small class="text-danger" *ngIf="personDir.errors.required">{{errors.required}}<br></small>
                     <small class="text-danger" *ngIf="personDir.errors.usualPattern">{{errors.text}}</small>
                 </small>
-            </div> 
+            </div>
             <div class="form-group">
                 <label for="personProvince" class=" text-muted">Provincia</label>
                 <select class="form-control"
-                        id="personProvince" 
+                        id="personProvince"
                         formControlName="personProvince"
                         (change)="onSelect($event)">
-                        <option *ngFor="let item of provinces" 
+                        <option *ngFor="let item of provinces"
                             [value]="item.provinceCode">
                             {{item.provinceName}} ({{item.provinceAB}})
                         </option>
@@ -127,9 +127,9 @@
             <div class="form-group">
                 <label for="personMunicipalite" class=" text-muted">Municipio</label>
                 <select class="form-control"
-                        id="personMunicipalite" 
+                        id="personMunicipalite"
                         formControlName="personMunicipalite">
-                        <option *ngFor="let item of municipalites" 
+                        <option *ngFor="let item of municipalites"
                             [value]="item.municipaliteCode">
                             {{item.municipaliteName}}
                         </option>

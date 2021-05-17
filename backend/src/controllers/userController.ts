@@ -9,6 +9,7 @@ import { EXPIRED_PASS, jwtSecret } from '../config/env';
 import * as jwt from "jsonwebtoken";
 import { UserData, IUserData, IUser, IPersonData, IUserPerson, IUserRole, UpdateUser, User} from '../models/userModel';
 import { Table, userTable, personTable, View } from '../helpers/tableHelper';
+import { IPerson } from './../models/userModel';
 
 
 class UserController{
@@ -22,7 +23,9 @@ class UserController{
             for (let index = 0; index < resultUser.length; index++) {
                 const element: IUserData = resultUser[index];
                 const personData = await sharedService.getPersonData(element.userCode);
-                result.push(personData);
+                if (personData) {
+                    result.push(personData);
+                }
             } 
             response.result = result;
             res.status(200).json(response);
@@ -58,8 +61,6 @@ class UserController{
         const logInCheck = (username: string) =>
             new Promise<void>((resolve, reject) => {
                 if (!username) {
-                    console.log('No user');
-                    
                     reject(false); 
                 }
                 resolve(); 
@@ -70,10 +71,8 @@ class UserController{
                 pool.query('SELECT * FROM ?? WHERE username = ?', [Table.userTable, username],
                 (err: any, rows: any) => {
                     if (err) {
-                        console.log(err);
                         reject(false); }
                     if (rows && rows.length < 1) {
-                        console.log(rows);
                         reject(false); } 
                     resolve(true); 
                 });
@@ -248,8 +247,19 @@ class UserController{
 
     public async profile(req: Request, res: Response): Promise<void> {
         let { id } = req.params;
-        const newData: IPersonData = req.body.editValue;
+        const editValue: any = req.body.editValue;
 
+        const editUser: IPerson = {
+            personCode: editValue.userCode,
+            firstName: editValue.firstName,
+            lastName: editValue.lastName,
+            personCI: editValue.personCI,
+            personDir: editValue.personDir,
+            personMunicipalite: editValue.personMunicipalite.municipaliteCode,
+            personProvince: editValue.personProvince.provinceCode,
+            personPhone: editValue.personPhone,
+            personEmail: editValue.personEmail,
+        }
         const createToken = (user: User) =>
             new Promise<any>((resolve, reject) => {
                 const jwToken = jwt.sign(
@@ -262,7 +272,7 @@ class UserController{
             });
             
         try {
-            await sqlHelper.update<IPersonData>(Table.personTable, personTable.personCode, id, newData);
+            await sqlHelper.update<IPersonData>(Table.personTable, personTable.personCode, id, editUser);
             const user = await sharedService.getPersonData(id);
             await createToken(user);
             res.status(200).json({result: user, err: null, message: ':: Has Editado tu Perfil Correctamente' });

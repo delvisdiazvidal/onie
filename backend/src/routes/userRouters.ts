@@ -19,7 +19,7 @@ class UserRoutes {
         this.router.get('/valid/:username', checkJwt, isAdmin, userController.isUsedUser);
         this.router.post('/', checkJwt, isAdmin, userController.create);
         this.router.put('/:id', checkJwt, isAdmin, userController.update);
-        this.router.put('/profile/:id', checkJwt, isAdmin, userController.profile);
+        this.router.put('/profile/:id', checkJwt, userController.profile);
         this.router.put('/change/:id', checkJwt, isAdmin, userController.changePassword);
         
     }

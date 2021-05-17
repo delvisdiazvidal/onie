@@ -11,17 +11,12 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   try {
     jwtPayload = <any>jwt.verify(token, jwtSecret);
     res.locals.jwtPayload = jwtPayload;
-    
   } catch (error) {
-    console.log('Token Error');
-    console.log(error);
     if(error.name === 'TokenExpiredError'){
-      console.log('Aca Error');
       res.status(401).json({ message: "Su sesión ha Expirado. Por favor regístrese nuevamente." });
       return;
     }
     if(error.name === 'JsonWebTokenError'){ 
-      console.log('Aca  no Error');
       res.status(401).json({ message: "El usuario no esta logeado. Por favor regístrese." });
       return;
     }

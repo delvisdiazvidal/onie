@@ -110,32 +110,40 @@ class SharedService {
         const result = new Promise<any>(async (resolve, reject) => {
           
             try {
-                const [personResult]: IUserPerson[]  = await sqlHelper.selectBy<IUserPerson>(View.userView, userTable.userCode, Number(userCode));
-                const [municipaliteResult]: IMunicipalite[]  = await sqlHelper.selectBy<IMunicipalite>(Table.municipaliteTable, municipaliteTable.municipaliteCode, personResult.personMunicipalite);
-                const [provinceResult]: IProvince[]  = await sqlHelper.selectBy<IProvince>(Table.provinceTable, provinceTable.provinceCode, personResult.personProvince);
-                const [roleResult]: IUserRole[]  = await sqlHelper.selectBy<IUserRole>(Table.userRoleTable, userRoleTable.userCode, Number(userCode));
-                const [userRoleResult]: IRoles[]  = await sqlHelper.selectBy<IRoles>(Table.roleTable, roleTable.roleCode, Number(roleResult.roleCode));
+                const [personResult]: IUserPerson[]  = await sqlHelper.filterBy<IUserPerson>(View.userView, userTable.userCode, Number(userCode));
+                if (personResult) {
+                    const [municipaliteResult]: IMunicipalite[]  = await sqlHelper.selectBy<IMunicipalite>(Table.municipaliteTable, municipaliteTable.municipaliteCode, personResult.personMunicipalite);
+                    const [provinceResult]: IProvince[]  = await sqlHelper.selectBy<IProvince>(Table.provinceTable, provinceTable.provinceCode, personResult.personProvince);
+                    const [roleResult]: IUserRole[]  = await sqlHelper.selectBy<IUserRole>(Table.userRoleTable, userRoleTable.userCode, Number(userCode));
+                    const [userRoleResult]: IRoles[]  = await sqlHelper.selectBy<IRoles>(Table.roleTable, roleTable.roleCode, Number(roleResult.roleCode));
+                    
+                    
+                    const personData: IUser = {
+                        userCode: userCode,
+                        username: personResult.username,
+                        firstName: personResult.firstName,
+                        lastName: personResult.lastName,
+                        personCI: personResult.personCI,
+                        personDir: personResult.personDir,
+                        personMunicipalite: municipaliteResult,
+                        personProvince: provinceResult,
+                        personPhone: personResult.personPhone,
+                        personEmail: personResult.personEmail,
+                        userRol: userRoleResult,
+                        createAt: personResult.createAt,
+                        modifyAt: personResult.modifyAt,
+                        expiredAt: personResult.expiredAt,
+                    };
 
-                const personData: IUser = {
-                    userCode: userCode,
-                    username: personResult.username,
-                    firstName: personResult.firstName,
-                    lastName: personResult.lastName,
-                    personCI: personResult.personCI,
-                    personDir: personResult.personDir,
-                    personMunicipalite: municipaliteResult,
-                    personProvince: provinceResult,
-                    personPhone: personResult.personPhone,
-                    personEmail: personResult.personEmail,
-                    userRol: userRoleResult,
-                    createAt: personResult.createAt,
-                    modifyAt: personResult.modifyAt,
-                    expiredAt: personResult.expiredAt,
-                };
-                const personUser = new User(personData);
-                resolve(personUser);
+                    const personUser = new User(personData);
+                   // console.log(personUser);
+                    resolve(personUser);
+                } else {
+                    console.log(userCode);
+                    resolve(personResult);
+                }
             } catch (err) {
-                err.message = 'Error al intentar Insertar información sobre la persona.';
+                err.message = 'Error al intentar Obtener información sobre la persona.';
                 reject(err);
             }
         });

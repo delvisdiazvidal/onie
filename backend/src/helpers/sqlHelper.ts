@@ -35,6 +35,20 @@ class SQLHelper {
         return result;
     }
 
+    public async filterBy<TResult>(table: string, key: string, param: number | string): Promise<TResult[]> {
+        const result = new Promise<TResult[]>((resolve, reject) => {
+            
+            pool.query(`SELECT * FROM ${table} WHERE ${key} = ?`, [param],
+            (err: any, rows: any) => {
+                if (err) {
+                    const error: IError = { body: err, status: 500, message: errorMessage(err)};
+                    reject(error);} 
+                resolve(rows as TResult[]); 
+            });
+        });
+        return result;
+    }
+
 
     public async selectLastBy<TResult>(table: string, key: string, param: number | string): Promise<TResult> {
         const result = new Promise<TResult>((resolve, reject) => {
@@ -47,7 +61,7 @@ class SQLHelper {
                     const error: IError = { body: param, status: 404, message: 'No se pudo obtener la última entrada.'};
                     reject(error); } 
                 rows as TResult[];
-                resolve(rows[rows.length-1]); 
+                resolve(rows.pop());
             });
         });
         return result;

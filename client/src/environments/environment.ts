@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  APP_NAME: 'ONIE - Oficina Nacional de Inspección Estatal',
+  APP_NAME: 'ONIE - Sitio Web para Solicitudes de Licencia de Pesca',
   APP_VERSION: '1.0.0',
   INC_NAME: 'Empresa de Servicios Automatizados - Alimatic',
   EXP_PASS: 5,

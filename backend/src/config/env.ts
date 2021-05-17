@@ -33,4 +33,4 @@ export const API_PORT = 4500;
 
 /** Configuraciones de los Usuarios */
 export const HISTORY_PASS = 3;
-export const EXPIRED_PASS = 90;
+export const EXPIRED_PASS = 60;
