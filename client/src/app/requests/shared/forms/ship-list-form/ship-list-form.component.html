@@ -1,73 +1,77 @@
 <form [formGroup]="shipsForm">
 <div class="card-body">
     <div class="form-group" formArrayName="shipList">
-        <div class="row" 
-            *ngFor="let item of getControlsShipList(); let i = index" 
+        <div class="row"
+            *ngFor="let item of getControlsShipList(); let i = index"
             [formGroupName]="i"
             style="margin-top: 10px">
             <div class="col-md-3">
                 <div class="form-group">
-                    <input type="text" 
-                            id="shipName" 
-                            formControlName="shipName" 
+                    <input type="text"
+                            id="shipName"
+                            formControlName="shipName"
                             class="form-control"
                             placeholder="Nombre del Barco">
-                            <!-- <div *ngIf="shipName.invalid && shipName.touched" class="alert alert-danger">
-                                <div *ngIf="shipName.errors.required">{{errors.required}}</div>
-                            </div> -->
+                            <small *ngIf="shipName(i).invalid && shipName(i).touched">
+                              <small class="text-danger" *ngIf="shipName(i).errors.required">{{errors.required}}</small>
+                              <small class="text-danger" *ngIf="shipName(i).errors.required">{{errors.required}}</small>
+                            </small>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <input type="text" 
-                            id="shipRegistry" 
-                            formControlName="shipRegistry" 
+                    <input type="text"
+                            id="shipRegistry"
+                            formControlName="shipRegistry"
                             class="form-control"
                             placeholder="Lista">
-                            <!-- <div *ngIf="shipRegistry.invalid && shipRegistry.touched" class="alert alert-danger">
-                                <div *ngIf="shipRegistry.errors.required">{{errors.required}}</div>
-                            </div> -->
+                            <small *ngIf="shipRegistry(i).invalid && shipRegistry(i).touched">
+                              <small class="text-danger" *ngIf="shipRegistry(i).errors.required">{{errors.required}}</small>
+                            </small>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <input type="text" 
-                            id="shipFolio" 
-                            formControlName="shipFolio" 
+                    <input type="text"
+                            id="shipFolio"
+                            formControlName="shipFolio"
                             class="form-control"
                             placeholder="Folio">
-                            <!-- <div *ngIf="shipFolio.invalid && shipFolio.touched" class="alert alert-danger">
-                                <div *ngIf="shipFolio.errors.required">{{errors.required}}</div>
-                            </div> -->
+                            <small *ngIf="shipFolio(i).invalid && shipFolio(i).touched">
+                              <small class="text-danger" *ngIf="shipFolio(i).errors.required">{{errors.required}}</small>
+                            </small>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <input type="number" 
-                            id="shipLength" 
+                    <input type="number"
+                            id="shipLength"
                             min="0"
-                            formControlName="shipLength" 
+                            formControlName="shipLength"
                             class="form-control"
+                            min="0"
                             placeholder="Eslora">
-                            <!-- <div *ngIf="shipLength.invalid && shipLength.touched" class="alert alert-danger">
-                                <div *ngIf="shipLength.errors.required">{{errors.required}}</div>
-                                <div *ngIf="shipLength.errors.required">{{errors.pattern}}</div>
-                            </div> -->
+                            <small *ngIf="shipLength(i).invalid && shipLength(i).touched">
+                              <small class="text-danger" *ngIf="shipLength(i).errors.required">{{errors.required}}</small>
+                              <small class="text-danger" *ngIf="shipLength(i).errors.pattern">{{errors.pattern}}</small>
+                              <small class="text-danger" *ngIf="shipBreadth(i).errors.nonZero">{{errors.nonZero}}</small>
+                            </small>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <input type="number" 
-                            id="shipBreadth" 
+                    <input type="number"
+                            id="shipBreadth"
                             min="0"
-                            formControlName="shipBreadth" 
+                            formControlName="shipBreadth"
                             class="form-control"
+                            min="0"
                             placeholder="Manga">
-                            <!-- <div *ngIf="shipBreadth.invalid && shipBreadth.touched" class="alert alert-danger">
-                                <div *ngIf="shipBreadth.errors.required">{{errors.required}}</div>
-                                <div *ngIf="shipBreadth.errors.required">{{errors.pattern}}</div>
-                                <small class="text-danger" *ngIf="shipBreadth.errors.nonZero">{{errors.nonZero}}</small>
-                            </div> -->
+                            <small *ngIf="shipBreadth(i).invalid && shipBreadth(i).touched">
+                              <small class="text-danger" *ngIf="shipBreadth(i).errors.required">{{errors.required}}</small>
+                              <small class="text-danger" *ngIf="shipBreadth(i).errors.pattern">{{errors.pattern}}</small>
+                              <small class="text-danger" *ngIf="shipBreadth(i).errors.nonZero">{{errors.nonZero}}</small>
+                            </small>
                 </div>
             </div>
             <div class="col-md-1">

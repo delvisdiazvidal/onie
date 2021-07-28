@@ -3,9 +3,9 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="text" 
-                        id="companyREEUP" 
-                        formControlName="companyREEUP" 
+                <input type="text"
+                        id="companyREEUP"
+                        formControlName="companyREEUP"
                         class="form-control"
                         placeholder="Código REEUP">
                         <small *ngIf="companyREEUP.invalid && companyREEUP.touched">
@@ -16,9 +16,9 @@
         </div>
         <div class="col-md-8">
             <div class="form-group">
-                <input type="text" 
-                        id="companyName" 
-                        formControlName="companyName" 
+                <input type="text"
+                        id="companyName"
+                        formControlName="companyName"
                         class="form-control"
                         placeholder="Nombre de la Empresa">
                         <small *ngIf="companyName.invalid && companyName.touched">
@@ -31,9 +31,9 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <input type="text" 
-                        id="entityName" 
-                        formControlName="entityName" 
+                <input type="text"
+                        id="entityName"
+                        formControlName="entityName"
                         class="form-control"
                         placeholder="Nombre de la UEB">
                         <small *ngIf="entityName.invalid && entityName.touched">
@@ -44,9 +44,9 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <input type="text" 
-                        id="fishingBrigade" 
-                        formControlName="fishingBrigade" 
+                <input type="text"
+                        id="fishingBrigade"
+                        formControlName="fishingBrigade"
                         class="form-control"
                         placeholder="Nombre de la Granja o Brigada">
                         <small *ngIf="fishingBrigade.invalid && fishingBrigade.touched">
@@ -59,13 +59,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <textarea 
-                type="text" 
-                class="form-control" 
-                formControlName="companyDir" 
-                id="companyDir" 
+                <textarea
+                type="text"
+                class="form-control"
+                formControlName="companyDir"
+                id="companyDir"
                 rows="3"
-                placeholder="Domicilio Legal">
+                placeholder="Ej. Calle No. 45 entre Calle y Calle, Reparto">
                 </textarea>
                 <small *ngIf="companyDir.invalid && companyDir.touched">
                     <small class="text-danger" *ngIf="companyDir.errors.required">{{errors.required}}</small>
@@ -79,9 +79,10 @@
             <div class="form-group">
                 <label for="companyProvince" class="text-muted">Provincia</label>
                 <select class="form-control"
-                        id="companyProvince" 
+                        id="companyProvince"
                         formControlName="companyProvince"
                         (change)="onSelect($event)">
+                        <option [ngValue]="null" [disabled]="true">Seleccione la Provincia</option>
                         <option *ngFor="let item of provinces"
                             [value]="item.provinceCode">
                             {{item.provinceName}} ({{item.provinceAB}})
@@ -93,9 +94,10 @@
             <div class="form-group">
                 <label for="companyMunicipalite" class="text-muted">Municipio</label>
                 <select class="form-control"
-                        id="companyMunicipalite" 
+                        id="companyMunicipalite"
                         formControlName="companyMunicipalite">
-                        <option *ngFor="let item of municipalites" 
+                        <option [ngValue]="null" [disabled]="true">Seleccione el Municipio</option>
+                        <option *ngFor="let item of municipalites"
                             [value]="item.municipaliteCode">
                             {{item.municipaliteName}}
                         </option>

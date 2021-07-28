@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-header">
-        <div class="row"> 
+        <div class="row">
             <div class="col-sm-9">
-                <h5 class="card-title"></h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{currentStep.description}}</h6>
+                <h5 class="card-title text-muted">{{currentStep.description}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{componentTitle}}</h6>
             </div>
             <div class="col-sm-3 text-right">
                 <h5 class="card-title"></h5>
@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <ng-template [ngIf]="setStep('PersonalInfo')"> 
+    <ng-template [ngIf]="setStep('PersonalInfo')">
         <ui-person-form
             [personForm]="addPersonForm">
         </ui-person-form>
@@ -20,7 +20,7 @@
             <button class="btn btn-success" [disabled]="inValidPersonForm()" (click)="goNext()">{{currentStep.next.title}}</button>
         </div>
     </ng-template>
-    <ng-template [ngIf]="setStep('CompanyInfo')"> 
+    <ng-template [ngIf]="setStep('CompanyInfo')">
         <ui-company-form
             [companyForm]="addCompanyForm">
         </ui-company-form>
@@ -30,7 +30,7 @@
             <button class="btn btn-success" [disabled]="inValidCompanyForm()" (click)="goNext()">{{currentStep.next.title}}</button>
         </div>
     </ng-template>
-    <ng-template [ngIf]="setStep('ShipInfo')"> 
+    <ng-template [ngIf]="setStep('ShipInfo')">
         <ui-ship-form
             [shipForm]="addShipForm"
             [fisherys]="fisherys">
@@ -41,7 +41,7 @@
             <button class="btn btn-success" [disabled]="inValidShipForm()" (click)="goNext()">{{currentStep.next.title}}</button>
         </div>
     </ng-template>
-    <ng-template [ngIf]="setStep('CaptainInfo')"> 
+    <ng-template [ngIf]="setStep('CaptainInfo')">
         <ui-person-form
             [personForm]="addCaptainForm">
         </ui-person-form>
@@ -51,7 +51,7 @@
             <button class="btn btn-success" [disabled]="inValidCaptainForm()" (click)="goNext()">{{currentStep.next.title}}</button>
         </div>
     </ng-template>
-    <ng-template [ngIf]="setStep('DocsInfo')"> 
+    <ng-template [ngIf]="setStep('DocsInfo')">
         <ui-docs-form
             [docsForm]="addDocsForm"
             [contract]="true">

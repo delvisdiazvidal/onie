@@ -16,7 +16,7 @@ export class ValidatorsService implements Validators {
    *
    * @return boolean => true: válido | false = inválido
    */
-  public strongPassValidator(): ValidatorFn {
+   public strongPassValidator(): ValidatorFn {
     return (control: FormControl) => {
       const loweRegex: RegExp = /[0-9]/;
       const upperRegex: RegExp = /[A-Z]/;
@@ -67,9 +67,30 @@ export class ValidatorsService implements Validators {
             return;
         }
         if (control.value === matchingControl.value) {
-            matchingControl.setErrors({ currentPass: true });
+          return matchingControl.setErrors({ currentPass: true });
         } else {
-            matchingControl.setErrors(null);
+            return null;
+        }
+    };
+  }
+
+
+  /**
+   * @summary Chequea que la contraseña anterior sea la actual
+   *
+   * @return boolean => true: válido | false = inválido
+   */
+   public oldPassValidator(): ValidatorFn {
+    return (control: FormControl) => {
+      if ( control.value ) {
+        return this.authService.isValidPassword(control.value)
+          .subscribe( (res) => {
+            if (res){
+              return null;
+            } else {
+              return { oldPass: true };
+            }
+          });
         }
     };
   }
@@ -83,22 +104,50 @@ export class ValidatorsService implements Validators {
     return (control: FormControl) => {
       if ( control.value ) {
       return this.userService.isUsedUser(control.value)
-        .subscribe( (res) => res ? control.setErrors({ usedUser: true }) : control.setErrors(null) );
+        .subscribe( (res) => res ? control.setErrors({ usedUser: true }) : control.setErrors(null));
       }
     };
   }
 
+  /**
+   * @summary Chequea que el identificador de la compañia no este en Uso
+   *
+   * @return boolean => true: inválido | false = válido
+   */
+/*   public companyIDValidator(): ValidatorFn {
+    return (control: FormControl) => {
+      if ( control.value ) {
+      return this.userService.isUsedID(control.value)
+        .subscribe( (res) => res ? control.setErrors({ usedID: true }) : control.setErrors(null));
+      }
+    };
+  } */
+
 
   /**
-   * @summary Chequea que la contraseña anterior sea la actual
+   * @summary Chequea que el número del carnet de identidad este correcto
    *
    * @return boolean => true: válido | false = inválido
    */
-  public oldPassValidator(): ValidatorFn {
+  public CIValidator(): ValidatorFn {
     return (control: FormControl) => {
       if ( control.value ) {
-      return this.authService.isValidPassword(control.value)
-        .subscribe( (res) => res ? control.setErrors(null) : control.setErrors({ oldPass: true }) );
+        const year = new Date(Date.now()).getFullYear();
+        // tslint:disable-next-line: max-line-length
+        const yearCI = control.value.slice(0, 2) >= String(year).slice(2, 4) ? '19' + control.value.slice(0, 2) : '20' + control.value.slice(0, 2);
+        const dateString = yearCI + '/' + control.value.slice(2, 4) + '/' + control.value.slice(4, 6);
+        const dateCI = new Date(Date.parse(dateString));
+        const limitOld = new Date();
+        const limitNew = new Date();
+        limitOld.setFullYear(Number(limitOld.getFullYear()) - 100);
+        limitNew.setFullYear(Number(limitNew.getFullYear()) - 15);
+        if (!((limitOld.getTime() < dateCI.getTime()) && ( dateCI.getTime() < limitNew.getTime()))) {
+          return {
+            validCI: true
+          };
+        } else {
+          return null;
+        }
       }
     };
   }
@@ -126,12 +175,48 @@ export class ValidatorsService implements Validators {
    *
    * @return boolean => true: válido | false = inválido
    */
+   public emailValidator(): ValidatorFn {
+    return (control: FormControl) => {
+      const emailRegEx: RegExp = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
+      if (control.value && !control.value.match(emailRegEx)){
+        return {
+          email: true
+        };
+      } else {
+        return null;
+      }
+    };
+  }
+
+  /**
+   * @summary Valida que sea la Extension permitida de un Fichero
+   *
+   * @return boolean => true: válido | false = inválido
+   */
   public extValidator(): ValidatorFn {
     return (control: FormControl) => {
       const urlRegEx: RegExp = /\.(jpe?g|png|pdf)$/i;
       if (control.value && !control.value.match(urlRegEx)){
         return {
           extension: true
+        };
+      } else {
+        return null;
+      }
+    };
+  }
+
+  /**
+   * @summary Valida que sea PDF la Extension permitida de un Fichero
+   *
+   * @return boolean => true: válido | false = inválido
+   */
+  public pdfExtValidator(): ValidatorFn {
+    return (control: FormControl) => {
+      const urlRegEx: RegExp = /\.(pdf)$/i;
+      if (control.value && !control.value.match(urlRegEx)){
+        return {
+          pdfExtension: true
         };
       } else {
         return null;
@@ -158,6 +243,24 @@ export class ValidatorsService implements Validators {
   }
 
   /**
+   * @summary Permite sólo caracteres Alfanuméricos
+   *
+   * @return boolean => true: válido | false = inválido
+   */
+  public userPattern(): ValidatorFn {
+    return (control: FormControl) => {
+      const regex: RegExp = /^[a-zA-Z0-9]*$/;
+      if (control.value && !regex.test(control.value)){
+        return {
+          userPattern: true
+        };
+      } else {
+        return null;
+      }
+    };
+  }
+
+  /**
    * @summary Permite sólo caracteres usuales
    *
    * @return boolean => true: válido | false = inválido
@@ -165,6 +268,24 @@ export class ValidatorsService implements Validators {
   public usualPattern(): ValidatorFn {
     return (control: FormControl) => {
       const regex: RegExp = /^[A-Za-z0-9.,\s\u00f1\u00d1\u00E0-\u00FC\u00C0-\u00DC]*$/;
+      if (control.value && !regex.test(control.value)){
+        return {
+          usualPattern: true
+        };
+      } else {
+        return null;
+      }
+    };
+  }
+
+  /**
+   * @summary Permite sólo caracteres usuales + parentesis
+   *
+   * @return boolean => true: válido | false = inválido
+   */
+  public usualPlusPattern(): ValidatorFn {
+    return (control: FormControl) => {
+      const regex: RegExp = /^[A-Za-z0-9.,)(\s\u00f1\u00d1\u00E0-\u00FC\u00C0-\u00DC]*$/;
       if (control.value && !regex.test(control.value)){
         return {
           usualPattern: true

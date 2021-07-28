@@ -3,37 +3,37 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" formArrayName="reservoirList">
-                <div class="row" 
-                    *ngFor="let item of getControlsReservoirList(); let i = index" 
+                <div class="row"
+                    *ngFor="let item of getControlsReservoirList(); let i = index"
                     [formGroupName]="i"
                     style="margin-top: 10px">
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input type="text" 
-                                    id="reservoirName" 
-                                    formControlName="reservoirName" 
+                            <input type="text"
+                                    id="reservoirName"
+                                    formControlName="reservoirName"
                                     class="form-control"
                                     placeholder="Nombre del Embalse">
-                                <!--  <small *ngIf="reservoirName.invalid && reservoirName.touched">
-                                        <small class="text-danger" *ngIf="reservoirName.errors.required">{{errors.required}}</small>
-                                        <small class="text-danger" *ngIf="reservoirName.errors.required">{{errors.pattern}}</small>
-                                    </small> -->
+                                    <small *ngIf="reservoirName(i).invalid && reservoirName(i).touched">
+                                        <small class="text-danger" *ngIf="reservoirName(i).errors.required">{{errors.required}}</small>
+                                        <small class="text-danger" *ngIf="reservoirName(i).errors.required">{{errors.pattern}}</small>
+                                    </small>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="number" 
+                            <input type="number"
                                     min="0"
-                                    id="reservoirSurface" 
-                                    formControlName="reservoirSurface" 
+                                    id="reservoirSurface"
+                                    formControlName="reservoirSurface"
                                     class="form-control"
                                     placeholder="Superficie">
-                                    <!-- <small *ngIf="reservoirSurface.invalid && reservoirSurface.touched">
-                                        <small class="text-danger" *ngIf="reservoirSurface.errors.required">{{errors.required}}</small>
-                                        <small class="text-danger" *ngIf="reservoirSurface.errors.required">{{errors.pattern}}</small>
-                                        <small class="text-danger" *ngIf="reservoirSurface.errors.nonZero">{{errors.nonZero}}</small>
-                                    </small> -->
+                                    <small *ngIf="reservoirSurface(i).invalid && reservoirSurface(i).touched">
+                                        <small class="text-danger" *ngIf="reservoirSurface(i).errors.required">{{errors.required}}</small>
+                                        <small class="text-danger" *ngIf="reservoirSurface(i).errors.required">{{errors.pattern}}</small>
+                                        <small class="text-danger" *ngIf="reservoirSurface(i).errors.nonZero">{{errors.nonZero}}</small>
+                                    </small>
                         </div>
                     </div>
                     <div class="col-md-1">

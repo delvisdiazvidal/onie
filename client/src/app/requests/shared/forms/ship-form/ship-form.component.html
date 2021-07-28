@@ -3,9 +3,9 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="text" 
-                        id="shipName" 
-                        formControlName="shipName" 
+                <input type="text"
+                        id="shipName"
+                        formControlName="shipName"
                         class="form-control"
                         placeholder="Nombre del Barco">
                         <small *ngIf="shipName.invalid && shipName.touched">
@@ -16,9 +16,9 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <input type="text" 
-                        id="shipPort" 
-                        formControlName="shipPort" 
+                <input type="text"
+                        id="shipPort"
+                        formControlName="shipPort"
                         class="form-control"
                         placeholder="Matrícula del Puerto">
                         <small *ngIf="shipPort.invalid && shipPort.touched">
@@ -29,9 +29,9 @@
         </div>
         <div class="col-md-2">
             <div class="form-group">
-                <input type="text" 
-                        id="shipFolio" 
-                        formControlName="shipFolio" 
+                <input type="text"
+                        id="shipFolio"
+                        formControlName="shipFolio"
                         class="form-control"
                         placeholder="Folio">
                         <small *ngIf="shipFolio.invalid && shipFolio.touched">
@@ -42,9 +42,9 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <input type="text" 
-                        id="shipRegistry" 
-                        formControlName="shipRegistry" 
+                <input type="text"
+                        id="shipRegistry"
+                        formControlName="shipRegistry"
                         class="form-control"
                         placeholder="Lista">
                         <small *ngIf="shipRegistry.invalid && shipRegistry.touched">
@@ -57,10 +57,10 @@
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                <input type="number" 
+                <input type="number"
                         id="shipLength"
-                        min="0" 
-                        formControlName="shipLength" 
+                        min="0"
+                        formControlName="shipLength"
                         class="form-control"
                         placeholder="Eslora">
                         <small *ngIf="shipLength.invalid && shipLength.touched">
@@ -71,10 +71,10 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <input type="number" 
-                        id="shipBreadth" 
+                <input type="number"
+                        id="shipBreadth"
                         min="0"
-                        formControlName="shipBreadth" 
+                        formControlName="shipBreadth"
                         class="form-control"
                         placeholder="Manga">
                         <small *ngIf="shipBreadth.invalid && shipBreadth.touched">
@@ -85,9 +85,9 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <input type="text" 
-                        id="shipRegistryBrut" 
-                        formControlName="shipRegistryBrut" 
+                <input type="text"
+                        id="shipRegistryBrut"
+                        formControlName="shipRegistryBrut"
                         class="form-control"
                         placeholder="Registro Bruto">
                         <small *ngIf="shipRegistryBrut.invalid && shipRegistryBrut.touched">
@@ -98,9 +98,9 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <input type="text" 
-                        id="shipEngine" 
-                        formControlName="shipEngine" 
+                <input type="text"
+                        id="shipEngine"
+                        formControlName="shipEngine"
                         class="form-control"
                         placeholder="Potencia del Motor">
                         <small *ngIf="shipEngine.invalid && shipEngine.touched">
@@ -115,9 +115,10 @@
             <div class="form-group" class="text-muted">
                 <label for="fisheryCraft">Artes de Pesca</label>
                 <select class="form-control"
-                        id="fisheryCraft" 
+                        id="fisheryCraft"
                         formControlName="fisheryCraft">
-                        <option *ngFor="let item of fisheryCrafts" 
+                        <option [ngValue]="null" [disabled]="true">Seleccione el Arte de Pesca</option>
+                        <option *ngFor="let item of fisheryCrafts"
                             [value]="item.fisherycraftCode">
                             {{item.fisherycraftName}}
                         </option>
@@ -127,9 +128,9 @@
         <div class="col-md-8">
             <div class="form-group">
                 <label for="fisheringAreas" class="text-muted">Áreas de Operación Pesquera</label>
-                <input type="text" 
-                        id="fisheringAreas" 
-                        formControlName="fisheringAreas" 
+                <input type="text"
+                        id="fisheringAreas"
+                        formControlName="fisheringAreas"
                         class="form-control"
                         placeholder="Áreas de Operación Pesquera">
                         <small *ngIf="fisheringAreas.invalid && fisheringAreas.touched">
@@ -157,6 +158,6 @@
             <small class="text-danger" *ngIf="fisheryList.errors.required">{{errors.minSelectedCheckboxes}}</small>
         </small>
     </div>
-    
+
 </div>
 </form>

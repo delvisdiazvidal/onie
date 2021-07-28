@@ -1,10 +1,11 @@
 {
-  "name": "onie-backend",
+  "name": "ONIE-Backend",
   "version": "1.0.8",
-  "description": "API de la App para Solicitudes de Licencia de Pesca de la ONIE",
+  "description": "API para Solicitudes de Licencia de Pesca de la ONIE",
   "author": {
     "name": "@delvisdiazvidal",
-    "email": "delvisdiazvidal@gmail.com"
+    "email": "delvisdiazvidal@gmail.com",
+    "company": "Empresa de Servicios Automatizados - Alimatic"
   },
   "license": "MIT",
   "keywords": [

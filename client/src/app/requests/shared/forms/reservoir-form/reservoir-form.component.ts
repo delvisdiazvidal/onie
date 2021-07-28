@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { updateLocale } from 'moment';
 import { ErrorMesagge } from 'src/app/shared/models/error.enum';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
 @Component({
   selector: 'ui-reservoir-form',
@@ -12,7 +13,7 @@ export class ReservoirFormComponent implements OnInit {
 
   @Input() reservoirForm: FormGroup;
 
-  constructor() { }
+  constructor(private validator: ValidatorsService) { }
 
   ngOnInit(): void {
   }
@@ -22,7 +23,8 @@ export class ReservoirFormComponent implements OnInit {
       new FormGroup({
         reservoirName: new FormControl('', Validators.required),
         reservoirSurface: new FormControl('', [ Validators.required,
-                                        Validators.pattern('^[1-9]+[0-9]*$')]),
+                                                Validators.pattern('^[1-9]+[0-9]*$'),
+                                                this.validator.nonZero()])
       })
     );
   }
@@ -41,11 +43,21 @@ export class ReservoirFormComponent implements OnInit {
     return ErrorMesagge;
   }
 
-  get reservoirName(){
-    return this.reservoirForm.controls.reservoirLis.get('reservoirName');
+  reservoirName(i: number){
+    const arrayControl = this.reservoirForm.controls.reservoirList as FormArray;
+    return arrayControl.at(i).get('reservoirName');
   }
 
-  get reservoirSurface(){
-    return this.reservoirForm.controls.reservoirLis.get('reservoirSurface');
+ /*  get reservoirName(){
+    return this.reservoirForm.controls.reservoirLis.get('reservoirName');
+  } */
+
+  reservoirSurface(i: number){
+    const arrayControl = this.reservoirForm.controls.reservoirList as FormArray;
+    return arrayControl.at(i).get('reservoirSurface');
   }
+
+  /* get reservoirSurface(){
+    return this.reservoirForm.controls.reservoirLis.get('reservoirSurface');
+  } */
 }

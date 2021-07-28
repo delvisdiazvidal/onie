@@ -3,9 +3,9 @@
     <div class="row">
         <div class="col-md-5">
             <div class="form-group">
-                <input type="text" 
-                        id="personName" 
-                        formControlName="personName" 
+                <input type="text"
+                        id="personName"
+                        formControlName="personName"
                         class="form-control"
                         placeholder="Nombres">
                         <small *ngIf="personName.invalid && personName.touched">
@@ -16,9 +16,9 @@
         </div>
         <div class="col-md-7">
             <div class="form-group">
-                <input type="text" 
-                        id="personLastName" 
-                        formControlName="personLastName" 
+                <input type="text"
+                        id="personLastName"
+                        formControlName="personLastName"
                         class="form-control"
                         placeholder="Apellidos">
                         <small *ngIf="personLastName.invalid && personLastName.touched" >
@@ -31,9 +31,9 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="text" 
-                        id="personCI" 
-                        formControlName="personCI" 
+                <input type="text"
+                        id="personCI"
+                        formControlName="personCI"
                         class="form-control"
                         maxlength="11"
                         placeholder="C. Identidad">
@@ -41,15 +41,15 @@
                             <small class="text-danger" *ngIf="personCI.errors.required">{{errors.required}}<br></small>
                             <small class="text-danger" *ngIf="personCI.errors.pattern">{{errors.pattern}}<br></small>
                             <small class="text-danger" *ngIf="personCI.errors.minlength">{{errors.minLength}}<br></small>
-                            <small class="text-danger" *ngIf="personCI.errors.maxlength">{{errors.maxLength}}<br></small>
+                            <small class="text-danger" *ngIf="personCI.errors.validCI">{{errors.validCI}}<br></small>
                         </small>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <input type="text" 
-                        id="personEmail" 
-                        formControlName="personEmail" 
+                <input type="text"
+                        id="personEmail"
+                        formControlName="personEmail"
                         class="form-control"
                         placeholder="Correo Electrónico (Opcional)">
                         <small *ngIf="personEmail.invalid && personEmail.touched">
@@ -59,17 +59,16 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <input type="text" 
-                        id="personPhone" 
-                        formControlName="personPhone" 
+                <input type="text"
+                        id="personPhone"
+                        formControlName="personPhone"
                         class="form-control"
-                        maxlength="10"
+                        maxlength="8"
                         placeholder="Teléfono">
                         <small *ngIf="personPhone.invalid && personPhone.touched">
                             <small class="text-danger" *ngIf="personPhone.errors.required">{{errors.required}}<br></small>
                             <small class="text-danger" *ngIf="personPhone.errors.pattern">{{errors.pattern}}<br></small>
                             <small class="text-danger" *ngIf="personPhone.errors.minlength">{{errors.minLength}}<br></small>
-                            <small class="text-danger" *ngIf="personPhone.errors.maxlength">{{errors.maxLength}}</small>
                         </small>
             </div>
         </div>
@@ -77,13 +76,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <textarea 
-                    type="text" 
-                    class="form-control" 
-                    formControlName="personDir" 
-                    id="personDir" 
+                <textarea
+                    type="text"
+                    class="form-control"
+                    formControlName="personDir"
+                    id="personDir"
                     rows="3"
-                    placeholder="Domicilio Legal">
+                    placeholder="Ej. Calle No. 45 entre Calle y Calle, Edif, Apto, Reparto">
                 </textarea>
                 <small *ngIf="personDir.invalid && personDir.touched">
                     <small class="text-danger" *ngIf="personDir.errors.required">{{errors.required}}</small>
@@ -97,10 +96,11 @@
             <div class="form-group">
                 <label for="personProvince" class=" text-muted">Provincia</label>
                 <select class="form-control"
-                        id="personProvince" 
+                        id="personProvince"
                         formControlName="personProvince"
                         (change)="onSelect($event)">
-                        <option *ngFor="let item of provinces" 
+                        <option [ngValue]="null" [disabled]="true">Seleccione la Provincia</option>
+                        <option *ngFor="let item of provinces"
                             [value]="item.provinceCode">
                             {{item.provinceName}} ({{item.provinceAB}})
                         </option>
@@ -111,9 +111,10 @@
             <div class="form-group">
                 <label for="personMunicipalite" class=" text-muted">Municipio</label>
                 <select class="form-control"
-                        id="personMunicipalite" 
+                        id="personMunicipalite"
                         formControlName="personMunicipalite">
-                        <option *ngFor="let item of municipalites" 
+                        <option [ngValue]="null" [disabled]="true">Seleccione el Municipio</option>
+                        <option *ngFor="let item of municipalites"
                             [value]="item.municipaliteCode">
                             {{item.municipaliteName}}
                         </option>

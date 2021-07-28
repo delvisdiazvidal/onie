@@ -12,6 +12,7 @@ import offenderRouters from './offenderRouters';
 import requestPlatformRouters from './requestPlatformRouters';
 import { isAdmin } from '../middlewares/checkRole';
 import { checkJwt } from '../middlewares/checkJwt';
+import homeRouters from './homeRouters';
 
 class IndexRoutes {
 
@@ -22,6 +23,7 @@ class IndexRoutes {
     }
 
     config(): void {
+        this.router.use('/', homeRouters);
         this.router.use('/users', userRoutes);
         this.router.use('/auth', authRoutes);
         this.router.use('/utils', utilsRouters);

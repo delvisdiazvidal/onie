@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorMesagge } from 'src/app/shared/models/error.enum';
 import { IMunicipalite, Province } from 'src/app/shared/models/locations.model';
 import { LocationService } from 'src/app/shared/services/location.service';
@@ -16,9 +15,7 @@ export class UsersFormComponent implements OnInit {
   provinces: Province[];
   municipalites: IMunicipalite[];
 
-  constructor(private route: ActivatedRoute,
-              private locationService: LocationService,
-              private router: Router) { }
+  constructor(private locationService: LocationService) { }
 
   ngOnInit(): void {
     this.municipalites = this.locationService.getMunicipalites();

@@ -12,6 +12,7 @@ export class DocsFormComponent implements OnInit {
   @Input() docsForm: FormGroup;
   @Input() contract: boolean;
   @Input() irh: boolean;
+  @Input() inValid: boolean;
 
   notTaxDebtFile: File;
   notTaxAboutShipPropertyFile: File;

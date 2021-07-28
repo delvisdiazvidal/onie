@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { StepCode, StepInfo } from '../shared/models/step-info.model';
 import { RequestService } from '../shared/services/request.service';
@@ -10,6 +9,8 @@ import { RequestAquacultureState } from '../shared/models/request-aquaculture-st
 import { Company } from 'src/app/shared/models/company.model';
 import { LicenseThumbs, LicenseType } from 'src/app/licenses/shared/models/license.model';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
+import { Router } from '@angular/router';
+import { ConfirmDialogService } from 'src/app/shared/services/confirm-dialog.service';
 
 @Component({
   selector: 'ui-request-aquaculture-state',
@@ -28,8 +29,8 @@ export class RequestAquacultureStateComponent implements OnInit {
           code: StepCode.CompanyInfo,
           cssClass: null,
         },
-      back: {
-          title: null,
+        back: {
+          title: 'Cancelar',
           code: null,
           cssClass: null,
         }
@@ -104,19 +105,30 @@ export class RequestAquacultureStateComponent implements OnInit {
   addReservoirsListForm: FormGroup;
   addDocsForm: FormGroup;
   legendSteps: string;
+  componentTitle: string;
+  docInValid: boolean;
 
   constructor(private requestService: RequestService,
+              private router: Router,
               private validator: ValidatorsService,
-              private router: Router) { }
+              private dialog: ConfirmDialogService) {
+                this.componentTitle = LicenseType.AquacultureState;
+              }
 
   ngOnInit(): void {
     this.currentStep = this.steps[0];
     this.totalSteps = this.steps.length;
+    this.docInValid = false;
     this.initPersonForm();
     this.initCompanyForm();
     this.initShipForm();
     this.initReservoirForm();
     this.initDocForm();
+  }
+
+  onDismiss(){
+    this.cleanForms();
+    this.router.navigate(['../solicitudes/nueva-solicitud']);
   }
 
   goNext(){
@@ -144,14 +156,15 @@ export class RequestAquacultureStateComponent implements OnInit {
       personCI: new FormControl('', [ Validators.required,
                                       Validators.pattern('^[0-9]+[0-9]*$'),
                                       Validators.minLength(11),
-                                      Validators.maxLength(11)]),
-      personEmail: new FormControl('', Validators.email),
+                                      this.validator.CIValidator()]),
+      personEmail: new FormControl('', this.validator.emailValidator()),
       personPhone: new FormControl('', [Validators.required,
+                                        Validators.minLength(8),
                                         Validators.pattern('^[1-9]+[0-9]*$')]),
       personDir: new FormControl('', [Validators.required,
                                       this.validator.usualPattern()]),
-      personMunicipalite: new FormControl(1, Validators.required),
-      personProvince: new FormControl(1, Validators.required),
+      personMunicipalite: new FormControl(null, Validators.required),
+      personProvince: new FormControl(null, Validators.required),
     });
   }
 
@@ -190,8 +203,8 @@ export class RequestAquacultureStateComponent implements OnInit {
                                         this.validator.usualPattern()]),
       companyDir: new FormControl('', [Validators.required,
                                         this.validator.usualPattern()]),
-      companyMunicipalite: new FormControl(1, Validators.required),
-      companyProvince: new FormControl(1, Validators.required),
+      companyMunicipalite: new FormControl(null, Validators.required),
+      companyProvince: new FormControl(null, Validators.required),
     });
   }
 
@@ -276,10 +289,9 @@ export class RequestAquacultureStateComponent implements OnInit {
     });
   }
 
-  inValidDocsForm(){
-    if (!this.addDocsForm.valid){
-       return true;
-  }}
+  get inValidDocsForm(){
+      return this.addDocsForm.invalid ? true : false;
+  }
 
   private get requestValue(): any {
 
@@ -317,8 +329,18 @@ export class RequestAquacultureStateComponent implements OnInit {
   }
 
   onSubmit(){
-    this.requestService.addAquacultureState(this.requestValue);
-    this.cleanForms();
+    if (this.inValidDocsForm){
+      this.docInValid = true;
+    } else {
+      this.dialog.confirm(' Está seguro que desea enviar la Solicitud? Revise todos los Datos cuidadosamente.')
+                .then((confirmed) => {
+                  if (confirmed) {
+                    this.requestService.addAquacultureState(this.requestValue);
+                    this.cleanForms();
+                  } else { return false; }
+                })
+                .catch(() => false);
+    }
   }
 
 }

@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { registerLocaleData } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import localesEs from '@angular/common/locales/es';
 
 registerLocaleData(localesEs, 'es');
@@ -41,7 +41,8 @@ import { RequestsModule } from './requests/requests.module';
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: LOCALE_ID, useValue: 'es'}
+    { provide: LOCALE_ID, useValue: 'es'},
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ]
 })
 export class AppModule { }

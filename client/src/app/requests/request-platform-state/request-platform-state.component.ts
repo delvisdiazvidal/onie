@@ -105,10 +105,13 @@ export class RequestPlatformStateComponent implements OnInit {
   addCaptainForm: FormGroup;
   addDocsForm: FormGroup;
   fisherys: IFishery[];
+  componentTitle: string;
 
   constructor(private requestService: RequestService,
               private utilService: UtilsService,
-              private validator: ValidatorsService) { }
+              private validator: ValidatorsService) {
+                this.componentTitle = LicenseType.PlatformState;
+              }
 
   ngOnInit(): void {
     this.currentStep = this.steps[0];
@@ -128,14 +131,15 @@ export class RequestPlatformStateComponent implements OnInit {
       personCI: new FormControl('', [ Validators.required,
                                       Validators.pattern('^[0-9]+[0-9]*$'),
                                       Validators.minLength(11),
-                                      Validators.maxLength(11)]),
-      personEmail: new FormControl('', Validators.email),
+                                      this.validator.CIValidator()]),
+      personEmail: new FormControl('', this.validator.emailValidator()),
       personPhone: new FormControl('', [Validators.required,
+                                        Validators.minLength(8),
                                         Validators.pattern('^[1-9]+[0-9]*$')]),
       personDir: new FormControl('', [Validators.required,
                                       this.validator.usualPattern()]),
-      personMunicipalite: new FormControl(1, Validators.required),
-      personProvince: new FormControl(1, Validators.required),
+      personMunicipalite: new FormControl(null, Validators.required),
+      personProvince: new FormControl(null, Validators.required),
     });
   }
 
@@ -174,8 +178,8 @@ export class RequestPlatformStateComponent implements OnInit {
                                         this.validator.usualPattern()]),
       companyDir: new FormControl('', [Validators.required,
                                         this.validator.usualPattern()]),
-      companyMunicipalite: new FormControl(1, Validators.required),
-      companyProvince: new FormControl(1, Validators.required),
+      companyMunicipalite: new FormControl(null, Validators.required),
+      companyProvince: new FormControl(null, Validators.required),
     });
   }
 
@@ -233,7 +237,7 @@ export class RequestPlatformStateComponent implements OnInit {
                                             this.validator.usualPattern()]),
       shipEngine: new FormControl('', [Validators.required,
                                       this.validator.usualPattern()]),
-      fisheryCraft: new FormControl(1, Validators.required),
+      fisheryCraft: new FormControl(null, Validators.required),
       fisheringAreas: new FormControl('', [Validators.required,
                                           this.validator.usualPattern()]),
       fisheryList: new FormArray([], this.validator.minSelectedCheckboxes(1))
@@ -282,14 +286,15 @@ export class RequestPlatformStateComponent implements OnInit {
       personCI: new FormControl('', [ Validators.required,
                                       Validators.pattern('^[0-9]+[0-9]*$'),
                                       Validators.minLength(11),
-                                      Validators.maxLength(11)]),
-      personEmail: new FormControl('', Validators.email),
+                                      this.validator.CIValidator()]),
+      personEmail: new FormControl('', this.validator.emailValidator()),
       personPhone: new FormControl('', [Validators.required,
-                                       Validators.pattern('^[1-9]+[0-9]*$')]),
+                                        Validators.minLength(8),
+                                         Validators.pattern('^[1-9]+[0-9]*$')]),
       personDir: new FormControl('', [Validators.required,
                                       this.validator.usualPattern()]),
-      personMunicipalite: new FormControl(1, Validators.required),
-      personProvince: new FormControl(1, Validators.required),
+      personMunicipalite: new FormControl(null, Validators.required),
+      personProvince: new FormControl(null, Validators.required),
     });
   }
 

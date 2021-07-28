@@ -11,6 +11,8 @@ import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { IFishery, IFisheryCraft } from 'src/app/shared/models/utilsModel';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 import { of } from 'rxjs';
+import { ConfirmDialogService } from 'src/app/shared/services/confirm-dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ui-request-platform-private',
@@ -30,7 +32,7 @@ export class RequestPlatformPrivateComponent implements OnInit {
           cssClass: null,
         },
       back: {
-          title: null,
+          title:  'Siguiente',
           code: null,
           cssClass: null,
         }
@@ -89,18 +91,45 @@ export class RequestPlatformPrivateComponent implements OnInit {
   addCaptainForm: FormGroup;
   addDocsForm: FormGroup;
   fisherys: IFishery[];
+  componentTitle: string;
+  docInValid: boolean;
 
   constructor(private requestService: RequestService,
               private utilService: UtilsService,
-              private validator: ValidatorsService) {
+              private router: Router,
+              private validator: ValidatorsService,
+              private dialog: ConfirmDialogService) {
+                this.componentTitle = LicenseType.PlatformPrivate;
               }
 
   ngOnInit(): void {
     this.currentStep = this.steps[0];
+    this.docInValid = false;
     this.initPersonForm();
     this.initShipForm();
     this.initCaptainForm();
     this.initDocForm();
+  }
+
+  onDismiss(){
+    this.cleanForms();
+    this.router.navigate(['../solicitudes/nueva-solicitud']);
+  }
+
+  goNext(){
+    if (this.currentStep.next.code)
+      { this.currentStep = this.steps.find( element => element.code === this.currentStep.next.code); }
+  }
+
+  goBack(){
+    if (this.currentStep.back.code)
+        { this.currentStep = this.steps.find( element => element.code === this.currentStep.back.code); }
+  }
+
+  setStep(stepCode: string){
+    if (this.currentStep.code === stepCode) {
+      return true;
+    }
   }
 
   private initPersonForm(){
@@ -112,14 +141,15 @@ export class RequestPlatformPrivateComponent implements OnInit {
       personCI: new FormControl('', [ Validators.required,
                                       Validators.pattern('^[0-9]+[0-9]*$'),
                                       Validators.minLength(11),
-                                      Validators.maxLength(11)]),
-      personEmail: new FormControl('', Validators.email),
+                                      this.validator.CIValidator()]),
+      personEmail: new FormControl('', this.validator.emailValidator()),
       personPhone: new FormControl('', [Validators.required,
+                                        Validators.minLength(8),
                                         Validators.pattern('^[1-9]+[0-9]*$')]),
       personDir: new FormControl('', [Validators.required,
                                       this.validator.usualPattern()]),
-      personMunicipalite: new FormControl(1, Validators.required),
-      personProvince: new FormControl(1, Validators.required),
+      personMunicipalite: new FormControl(null, Validators.required),
+      personProvince: new FormControl(null, Validators.required),
     });
   }
 
@@ -179,7 +209,7 @@ export class RequestPlatformPrivateComponent implements OnInit {
                                             this.validator.usualPattern()]),
       shipEngine: new FormControl('', [Validators.required,
                                       this.validator.usualPattern()]),
-      fisheryCraft: new FormControl(1, Validators.required),
+      fisheryCraft: new FormControl(null, Validators.required),
       fisheringAreas: new FormControl('', [Validators.required,
                                     this.validator.usualPattern()]),
       fisheryList: new FormArray([], this.validator.minSelectedCheckboxes(1))
@@ -230,14 +260,15 @@ export class RequestPlatformPrivateComponent implements OnInit {
       personCI: new FormControl('', [ Validators.required,
                                       Validators.pattern('^[0-9]+[0-9]*$'),
                                       Validators.minLength(11),
-                                      Validators.maxLength(11)]),
-      personEmail: new FormControl('', Validators.email),
+                                      this.validator.CIValidator()]),
+      personEmail: new FormControl('', this.validator.emailValidator()),
       personPhone: new FormControl('', [Validators.required,
+                                        Validators.minLength(8),
                                          Validators.pattern('^[1-9]+[0-9]*$')]),
       personDir: new FormControl('', [Validators.required,
                                       this.validator.usualPattern()]),
-      personMunicipalite: new FormControl(1, Validators.required),
-      personProvince: new FormControl(1, Validators.required),
+      personMunicipalite: new FormControl(null, Validators.required),
+      personProvince: new FormControl(null, Validators.required),
     });
   }
 
@@ -275,10 +306,8 @@ export class RequestPlatformPrivateComponent implements OnInit {
     });
   }
 
-  inValidDocForm(){
-    if (!this.addDocsForm.valid){
-      return true;
-    }
+  get inValidDocsForm(){
+    return this.addDocsForm.invalid ? true : false;
   }
 
   private get requestValue(): RequestPlatformPrivate {
@@ -311,26 +340,6 @@ export class RequestPlatformPrivateComponent implements OnInit {
     return newRequest;
   }
 
-  goNext(){
-    if (this.currentStep.next.code)
-      { this.currentStep = this.steps.find( element => element.code === this.currentStep.next.code); }
-  }
-
-  goBack(){
-    if (this.currentStep.back.code)
-        { this.currentStep = this.steps.find( element => element.code === this.currentStep.back.code); }
-  }
-
-  setStep(stepCode: string){
-    if (this.currentStep.code === stepCode) {
-      return true;
-    }
-  }
-
-  inValidForm(){
-    return false;
-  }
-
   private cleanForms(){
     this.addPersonForm.reset();
     this.addShipForm.reset();
@@ -339,8 +348,18 @@ export class RequestPlatformPrivateComponent implements OnInit {
   }
 
   onSubmit(){
-    this.requestService.addPlatformPrivate(this.requestValue);
-    this.cleanForms();
+    if (this.inValidDocsForm){
+      this.docInValid = true;
+    } else {
+      this.dialog.confirm(' Está seguro que desea enviar la Solicitud? Revise todos los Datos cuidadosamente.')
+                .then((confirmed) => {
+                  if (confirmed) {
+                    this.requestService.addPlatformPrivate(this.requestValue);
+                    this.cleanForms();
+                  } else { return false; }
+                })
+                .catch(() => false);
+    }
   }
 
 }

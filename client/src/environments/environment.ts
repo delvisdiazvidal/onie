@@ -9,6 +9,7 @@ export const environment = {
   INC_NAME: 'Empresa de Servicios Automatizados - Alimatic',
   EXP_PASS: 5,
   MAX_ATTEMPTS: 3,
+  APP_EMAIL: 'admin@onie.alinet.cu',
   docsUrl: 'http://localhost:4500/',
   baseUrl: 'http://localhost:4500/api/',
   authUrl: 'http://localhost:4500/api/auth',

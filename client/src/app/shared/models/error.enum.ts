@@ -2,6 +2,8 @@ export enum ErrorMesagge {
     required = 'Esta información es Requerida',
     minLength = 'No ha alcanzado la longitud mínima requerida',
     maxLength = 'Ha sobrepasado la longitud máxima permitida',
+    validCI = 'Número de Carnet de Identidad incorrecto',
+    usedCI = 'Número de Carnet de Identidad en Uso',
     email = 'Correo electrónico incorrecto',
     pattern = 'Este campo sólo admite Números',
     alphanumeric = 'Este campo sólo admite caracteres alfanuméricos',
